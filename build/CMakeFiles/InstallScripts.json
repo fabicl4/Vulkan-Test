@@ -1,0 +1,13 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/cmake_install.cmake",
+		"C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/vendor/cmake_install.cmake",
+		"C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/vendor/glfw-3.4/cmake_install.cmake",
+		"C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/vendor/glfw-3.4/src/cmake_install.cmake",
+		"C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/vendor/glfw-3.4/docs/cmake_install.cmake",
+		"C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/_deps/spdlog-build/cmake_install.cmake",
+		"C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/src/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

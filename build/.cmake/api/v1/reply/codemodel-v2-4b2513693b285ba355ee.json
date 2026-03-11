@@ -1,0 +1,1412 @@
+{
+	"configurations" : 
+	[
+		{
+			"abstractTargets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "Git::Git::@af9395fb4c239a7adf53",
+					"jsonFile" : "target-Git__Git-Debug-60777f399905dc03a220.json",
+					"name" : "Git::Git",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "Threads::Threads::@56e68d006341f5c01858",
+					"jsonFile" : "target-Threads__Threads-Debug-c1cf5901c5f40937ae26.json",
+					"name" : "Threads::Threads",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "Threads::Threads::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-Threads__Threads-Debug-80a6b138067e46ae9e6b.json",
+					"name" : "Threads::Threads",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::Headers::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__Headers-Debug-6a8ad90fd4034de15a61.json",
+					"name" : "Vulkan::Headers",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::Vulkan::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__Vulkan-Debug-72ecee9d7d8140897b73.json",
+					"name" : "Vulkan::Vulkan",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::glslangValidator::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__glslangValidator-Debug-a526d41d85e5aed3fe2b.json",
+					"name" : "Vulkan::glslangValidator",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::glslc::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__glslc-Debug-95eba611dd3d27a03e4e.json",
+					"name" : "Vulkan::glslc",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "glm::@af9395fb4c239a7adf53",
+					"jsonFile" : "target-glm-Debug-47a39878fe919a7ac54e.json",
+					"name" : "glm",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "spdlog_header_only::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-spdlog_header_only-Debug-e7c43e9fc9f5c6324d56.json",
+					"name" : "spdlog_header_only",
+					"projectIndex" : 2
+				}
+			],
+			"directories" : 
+			[
+				{
+					"abstractTargetIndexes" : 
+					[
+						3,
+						4,
+						5,
+						6
+					],
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						6
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-f6f22219c74102c3da70.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						3
+					]
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						0,
+						7
+					],
+					"build" : "vendor",
+					"childIndexes" : 
+					[
+						2,
+						5
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-vendor-Debug-5305ffae243cd1c28470.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "vendor"
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						1
+					],
+					"build" : "vendor/glfw-3.4",
+					"childIndexes" : 
+					[
+						3,
+						4
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-vendor.glfw-3.4-Debug-af14e22026b8c699d84b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "vendor/glfw-3.4",
+					"targetIndexes" : 
+					[
+						1,
+						6
+					]
+				},
+				{
+					"build" : "vendor/glfw-3.4/src",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-vendor.glfw-3.4.src-Debug-32f31347e1b1edc30d2f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "vendor/glfw-3.4/src",
+					"targetIndexes" : 
+					[
+						4,
+						7
+					]
+				},
+				{
+					"build" : "vendor/glfw-3.4/docs",
+					"jsonFile" : "directory-vendor.glfw-3.4.docs-Debug-6740df5b8537b95dcee7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "vendor/glfw-3.4/docs"
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						2,
+						8
+					],
+					"build" : "_deps/spdlog-build",
+					"jsonFile" : "directory-_deps.spdlog-build-Debug-78ff19d02d7ac3baf8f2.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.11"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "build/_deps/spdlog-src",
+					"targetIndexes" : 
+					[
+						2,
+						5
+					]
+				},
+				{
+					"build" : "src",
+					"jsonFile" : "directory-src-Debug-1722085f943e0250936a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src",
+					"targetIndexes" : 
+					[
+						8
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"abstractTargetIndexes" : 
+					[
+						0,
+						3,
+						4,
+						5,
+						6,
+						7
+					],
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						6
+					],
+					"name" : "vulkan_tutorial",
+					"targetIndexes" : 
+					[
+						0,
+						3,
+						8
+					]
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						2,
+						3,
+						4
+					],
+					"name" : "GLFW",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1,
+						4,
+						6,
+						7
+					]
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						2,
+						8
+					],
+					"directoryIndexes" : 
+					[
+						5
+					],
+					"name" : "spdlog",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-Debug-68426a5f3f188d0e48b2.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ALL_BUILD::@56e68d006341f5c01858",
+					"jsonFile" : "target-ALL_BUILD-Debug-f2dbae2eeba980428516.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "ALL_BUILD::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-ALL_BUILD-Debug-a494e3a662045a22f6d9.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-Debug-7a26911a8103a044faf9.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "glfw::@b969feb7f28d330b788c",
+					"jsonFile" : "target-glfw-Debug-09186bfa6d046a788c6f.json",
+					"name" : "glfw",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "spdlog::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-spdlog-Debug-c8782bdbaaa3b43329a8.json",
+					"name" : "spdlog",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "uninstall::@56e68d006341f5c01858",
+					"jsonFile" : "target-uninstall-Debug-4e520c2c569c41b0d2af.json",
+					"name" : "uninstall",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "update_mappings::@b969feb7f28d330b788c",
+					"jsonFile" : "target-update_mappings-Debug-b6cbf7278c4ef68a19cf.json",
+					"name" : "update_mappings",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "vulkan_tutorial::@145eef247bfb46b6828c",
+					"jsonFile" : "target-vulkan_tutorial-Debug-9f615042b6c83e0930e5.json",
+					"name" : "vulkan_tutorial",
+					"projectIndex" : 0
+				}
+			]
+		},
+		{
+			"abstractTargets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "Git::Git::@af9395fb4c239a7adf53",
+					"jsonFile" : "target-Git__Git-Release-60777f399905dc03a220.json",
+					"name" : "Git::Git",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "Threads::Threads::@56e68d006341f5c01858",
+					"jsonFile" : "target-Threads__Threads-Release-c1cf5901c5f40937ae26.json",
+					"name" : "Threads::Threads",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "Threads::Threads::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-Threads__Threads-Release-80a6b138067e46ae9e6b.json",
+					"name" : "Threads::Threads",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::Headers::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__Headers-Release-6a8ad90fd4034de15a61.json",
+					"name" : "Vulkan::Headers",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::Vulkan::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__Vulkan-Release-72ecee9d7d8140897b73.json",
+					"name" : "Vulkan::Vulkan",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::glslangValidator::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__glslangValidator-Release-a526d41d85e5aed3fe2b.json",
+					"name" : "Vulkan::glslangValidator",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::glslc::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__glslc-Release-95eba611dd3d27a03e4e.json",
+					"name" : "Vulkan::glslc",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "glm::@af9395fb4c239a7adf53",
+					"jsonFile" : "target-glm-Release-47a39878fe919a7ac54e.json",
+					"name" : "glm",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "spdlog_header_only::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-spdlog_header_only-Release-e7c43e9fc9f5c6324d56.json",
+					"name" : "spdlog_header_only",
+					"projectIndex" : 2
+				}
+			],
+			"directories" : 
+			[
+				{
+					"abstractTargetIndexes" : 
+					[
+						3,
+						4,
+						5,
+						6
+					],
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						6
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-f6f22219c74102c3da70.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						3
+					]
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						0,
+						7
+					],
+					"build" : "vendor",
+					"childIndexes" : 
+					[
+						2,
+						5
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-vendor-Release-5305ffae243cd1c28470.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "vendor"
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						1
+					],
+					"build" : "vendor/glfw-3.4",
+					"childIndexes" : 
+					[
+						3,
+						4
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-vendor.glfw-3.4-Release-af14e22026b8c699d84b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "vendor/glfw-3.4",
+					"targetIndexes" : 
+					[
+						1,
+						6
+					]
+				},
+				{
+					"build" : "vendor/glfw-3.4/src",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-vendor.glfw-3.4.src-Release-e3b7c0018c7a0db4b51b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "vendor/glfw-3.4/src",
+					"targetIndexes" : 
+					[
+						4,
+						7
+					]
+				},
+				{
+					"build" : "vendor/glfw-3.4/docs",
+					"jsonFile" : "directory-vendor.glfw-3.4.docs-Release-6740df5b8537b95dcee7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "vendor/glfw-3.4/docs"
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						2,
+						8
+					],
+					"build" : "_deps/spdlog-build",
+					"jsonFile" : "directory-_deps.spdlog-build-Release-78ff19d02d7ac3baf8f2.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.11"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "build/_deps/spdlog-src",
+					"targetIndexes" : 
+					[
+						2,
+						5
+					]
+				},
+				{
+					"build" : "src",
+					"jsonFile" : "directory-src-Release-1722085f943e0250936a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src",
+					"targetIndexes" : 
+					[
+						8
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"abstractTargetIndexes" : 
+					[
+						0,
+						3,
+						4,
+						5,
+						6,
+						7
+					],
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						6
+					],
+					"name" : "vulkan_tutorial",
+					"targetIndexes" : 
+					[
+						0,
+						3,
+						8
+					]
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						2,
+						3,
+						4
+					],
+					"name" : "GLFW",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1,
+						4,
+						6,
+						7
+					]
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						2,
+						8
+					],
+					"directoryIndexes" : 
+					[
+						5
+					],
+					"name" : "spdlog",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-Release-68426a5f3f188d0e48b2.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ALL_BUILD::@56e68d006341f5c01858",
+					"jsonFile" : "target-ALL_BUILD-Release-f2dbae2eeba980428516.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "ALL_BUILD::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-ALL_BUILD-Release-a494e3a662045a22f6d9.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-Release-7a26911a8103a044faf9.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "glfw::@b969feb7f28d330b788c",
+					"jsonFile" : "target-glfw-Release-28c0633012ca35913dea.json",
+					"name" : "glfw",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "spdlog::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-spdlog-Release-6c458f6cf9e475ce5369.json",
+					"name" : "spdlog",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "uninstall::@56e68d006341f5c01858",
+					"jsonFile" : "target-uninstall-Release-4e520c2c569c41b0d2af.json",
+					"name" : "uninstall",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "update_mappings::@b969feb7f28d330b788c",
+					"jsonFile" : "target-update_mappings-Release-b6cbf7278c4ef68a19cf.json",
+					"name" : "update_mappings",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "vulkan_tutorial::@145eef247bfb46b6828c",
+					"jsonFile" : "target-vulkan_tutorial-Release-be79dc5d615332f49c22.json",
+					"name" : "vulkan_tutorial",
+					"projectIndex" : 0
+				}
+			]
+		},
+		{
+			"abstractTargets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "Git::Git::@af9395fb4c239a7adf53",
+					"jsonFile" : "target-Git__Git-MinSizeRel-60777f399905dc03a220.json",
+					"name" : "Git::Git",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "Threads::Threads::@56e68d006341f5c01858",
+					"jsonFile" : "target-Threads__Threads-MinSizeRel-c1cf5901c5f40937ae26.json",
+					"name" : "Threads::Threads",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "Threads::Threads::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-Threads__Threads-MinSizeRel-80a6b138067e46ae9e6b.json",
+					"name" : "Threads::Threads",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::Headers::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__Headers-MinSizeRel-6a8ad90fd4034de15a61.json",
+					"name" : "Vulkan::Headers",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::Vulkan::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__Vulkan-MinSizeRel-72ecee9d7d8140897b73.json",
+					"name" : "Vulkan::Vulkan",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::glslangValidator::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__glslangValidator-MinSizeRel-a526d41d85e5aed3fe2b.json",
+					"name" : "Vulkan::glslangValidator",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::glslc::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__glslc-MinSizeRel-95eba611dd3d27a03e4e.json",
+					"name" : "Vulkan::glslc",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "glm::@af9395fb4c239a7adf53",
+					"jsonFile" : "target-glm-MinSizeRel-47a39878fe919a7ac54e.json",
+					"name" : "glm",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "spdlog_header_only::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-spdlog_header_only-MinSizeRel-e7c43e9fc9f5c6324d56.json",
+					"name" : "spdlog_header_only",
+					"projectIndex" : 2
+				}
+			],
+			"directories" : 
+			[
+				{
+					"abstractTargetIndexes" : 
+					[
+						3,
+						4,
+						5,
+						6
+					],
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						6
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-MinSizeRel-f6f22219c74102c3da70.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						3
+					]
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						0,
+						7
+					],
+					"build" : "vendor",
+					"childIndexes" : 
+					[
+						2,
+						5
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-vendor-MinSizeRel-5305ffae243cd1c28470.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "vendor"
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						1
+					],
+					"build" : "vendor/glfw-3.4",
+					"childIndexes" : 
+					[
+						3,
+						4
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-vendor.glfw-3.4-MinSizeRel-af14e22026b8c699d84b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "vendor/glfw-3.4",
+					"targetIndexes" : 
+					[
+						1,
+						6
+					]
+				},
+				{
+					"build" : "vendor/glfw-3.4/src",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-vendor.glfw-3.4.src-MinSizeRel-0b305194d15a5c0b14f0.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "vendor/glfw-3.4/src",
+					"targetIndexes" : 
+					[
+						4,
+						7
+					]
+				},
+				{
+					"build" : "vendor/glfw-3.4/docs",
+					"jsonFile" : "directory-vendor.glfw-3.4.docs-MinSizeRel-6740df5b8537b95dcee7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "vendor/glfw-3.4/docs"
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						2,
+						8
+					],
+					"build" : "_deps/spdlog-build",
+					"jsonFile" : "directory-_deps.spdlog-build-MinSizeRel-78ff19d02d7ac3baf8f2.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.11"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "build/_deps/spdlog-src",
+					"targetIndexes" : 
+					[
+						2,
+						5
+					]
+				},
+				{
+					"build" : "src",
+					"jsonFile" : "directory-src-MinSizeRel-1722085f943e0250936a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src",
+					"targetIndexes" : 
+					[
+						8
+					]
+				}
+			],
+			"name" : "MinSizeRel",
+			"projects" : 
+			[
+				{
+					"abstractTargetIndexes" : 
+					[
+						0,
+						3,
+						4,
+						5,
+						6,
+						7
+					],
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						6
+					],
+					"name" : "vulkan_tutorial",
+					"targetIndexes" : 
+					[
+						0,
+						3,
+						8
+					]
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						2,
+						3,
+						4
+					],
+					"name" : "GLFW",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1,
+						4,
+						6,
+						7
+					]
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						2,
+						8
+					],
+					"directoryIndexes" : 
+					[
+						5
+					],
+					"name" : "spdlog",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-68426a5f3f188d0e48b2.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ALL_BUILD::@56e68d006341f5c01858",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-f2dbae2eeba980428516.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "ALL_BUILD::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-a494e3a662045a22f6d9.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-MinSizeRel-7a26911a8103a044faf9.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "glfw::@b969feb7f28d330b788c",
+					"jsonFile" : "target-glfw-MinSizeRel-9209aafc72f6a7f5770b.json",
+					"name" : "glfw",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "spdlog::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-spdlog-MinSizeRel-ed3435387fb41206884f.json",
+					"name" : "spdlog",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "uninstall::@56e68d006341f5c01858",
+					"jsonFile" : "target-uninstall-MinSizeRel-4e520c2c569c41b0d2af.json",
+					"name" : "uninstall",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "update_mappings::@b969feb7f28d330b788c",
+					"jsonFile" : "target-update_mappings-MinSizeRel-b6cbf7278c4ef68a19cf.json",
+					"name" : "update_mappings",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "vulkan_tutorial::@145eef247bfb46b6828c",
+					"jsonFile" : "target-vulkan_tutorial-MinSizeRel-8090b1fc93764c9dfa9e.json",
+					"name" : "vulkan_tutorial",
+					"projectIndex" : 0
+				}
+			]
+		},
+		{
+			"abstractTargets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "Git::Git::@af9395fb4c239a7adf53",
+					"jsonFile" : "target-Git__Git-RelWithDebInfo-60777f399905dc03a220.json",
+					"name" : "Git::Git",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "Threads::Threads::@56e68d006341f5c01858",
+					"jsonFile" : "target-Threads__Threads-RelWithDebInfo-c1cf5901c5f40937ae26.json",
+					"name" : "Threads::Threads",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "Threads::Threads::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-Threads__Threads-RelWithDebInfo-80a6b138067e46ae9e6b.json",
+					"name" : "Threads::Threads",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::Headers::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__Headers-RelWithDebInfo-6a8ad90fd4034de15a61.json",
+					"name" : "Vulkan::Headers",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::Vulkan::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__Vulkan-RelWithDebInfo-72ecee9d7d8140897b73.json",
+					"name" : "Vulkan::Vulkan",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::glslangValidator::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__glslangValidator-RelWithDebInfo-a526d41d85e5aed3fe2b.json",
+					"name" : "Vulkan::glslangValidator",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vulkan::glslc::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vulkan__glslc-RelWithDebInfo-95eba611dd3d27a03e4e.json",
+					"name" : "Vulkan::glslc",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "glm::@af9395fb4c239a7adf53",
+					"jsonFile" : "target-glm-RelWithDebInfo-47a39878fe919a7ac54e.json",
+					"name" : "glm",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "spdlog_header_only::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-spdlog_header_only-RelWithDebInfo-e7c43e9fc9f5c6324d56.json",
+					"name" : "spdlog_header_only",
+					"projectIndex" : 2
+				}
+			],
+			"directories" : 
+			[
+				{
+					"abstractTargetIndexes" : 
+					[
+						3,
+						4,
+						5,
+						6
+					],
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						6
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-RelWithDebInfo-f6f22219c74102c3da70.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						3
+					]
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						0,
+						7
+					],
+					"build" : "vendor",
+					"childIndexes" : 
+					[
+						2,
+						5
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-vendor-RelWithDebInfo-5305ffae243cd1c28470.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "vendor"
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						1
+					],
+					"build" : "vendor/glfw-3.4",
+					"childIndexes" : 
+					[
+						3,
+						4
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-vendor.glfw-3.4-RelWithDebInfo-af14e22026b8c699d84b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "vendor/glfw-3.4",
+					"targetIndexes" : 
+					[
+						1,
+						6
+					]
+				},
+				{
+					"build" : "vendor/glfw-3.4/src",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-vendor.glfw-3.4.src-RelWithDebInfo-4a4d9edefbe91187e8e1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "vendor/glfw-3.4/src",
+					"targetIndexes" : 
+					[
+						4,
+						7
+					]
+				},
+				{
+					"build" : "vendor/glfw-3.4/docs",
+					"jsonFile" : "directory-vendor.glfw-3.4.docs-RelWithDebInfo-6740df5b8537b95dcee7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "vendor/glfw-3.4/docs"
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						2,
+						8
+					],
+					"build" : "_deps/spdlog-build",
+					"jsonFile" : "directory-_deps.spdlog-build-RelWithDebInfo-78ff19d02d7ac3baf8f2.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.11"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "build/_deps/spdlog-src",
+					"targetIndexes" : 
+					[
+						2,
+						5
+					]
+				},
+				{
+					"build" : "src",
+					"jsonFile" : "directory-src-RelWithDebInfo-1722085f943e0250936a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src",
+					"targetIndexes" : 
+					[
+						8
+					]
+				}
+			],
+			"name" : "RelWithDebInfo",
+			"projects" : 
+			[
+				{
+					"abstractTargetIndexes" : 
+					[
+						0,
+						3,
+						4,
+						5,
+						6,
+						7
+					],
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						6
+					],
+					"name" : "vulkan_tutorial",
+					"targetIndexes" : 
+					[
+						0,
+						3,
+						8
+					]
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						2,
+						3,
+						4
+					],
+					"name" : "GLFW",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1,
+						4,
+						6,
+						7
+					]
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						2,
+						8
+					],
+					"directoryIndexes" : 
+					[
+						5
+					],
+					"name" : "spdlog",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-68426a5f3f188d0e48b2.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ALL_BUILD::@56e68d006341f5c01858",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-f2dbae2eeba980428516.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "ALL_BUILD::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-a494e3a662045a22f6d9.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-RelWithDebInfo-7a26911a8103a044faf9.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "glfw::@b969feb7f28d330b788c",
+					"jsonFile" : "target-glfw-RelWithDebInfo-ef3d176b72cc6d769949.json",
+					"name" : "glfw",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "spdlog::@eb35cfce7893ccfeff1e",
+					"jsonFile" : "target-spdlog-RelWithDebInfo-1d89fdf4410e0c4d6194.json",
+					"name" : "spdlog",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "uninstall::@56e68d006341f5c01858",
+					"jsonFile" : "target-uninstall-RelWithDebInfo-4e520c2c569c41b0d2af.json",
+					"name" : "uninstall",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "update_mappings::@b969feb7f28d330b788c",
+					"jsonFile" : "target-update_mappings-RelWithDebInfo-b6cbf7278c4ef68a19cf.json",
+					"name" : "update_mappings",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "vulkan_tutorial::@145eef247bfb46b6828c",
+					"jsonFile" : "target-vulkan_tutorial-RelWithDebInfo-7e13a3f48f1c99470f75.json",
+					"name" : "vulkan_tutorial",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/fabic/Documents/GitHub/Vulkan-Test/build",
+		"source" : "C:/Users/fabic/Documents/GitHub/Vulkan-Test"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 9
+	}
+}

@@ -1,0 +1,10 @@
+^C:\USERS\FABIC\DOCUMENTS\GITHUB\VULKAN-TEST\SRC\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/fabic/Documents/GitHub/Vulkan-Test -BC:/Users/fabic/Documents/GitHub/Vulkan-Test/build --check-stamp-file C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/src/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

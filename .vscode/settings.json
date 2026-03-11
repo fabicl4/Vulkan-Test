@@ -1,0 +1,9 @@
+{
+	"cmake.generator": "Visual Studio 18 2026",  
+	"cmake.buildDirectory": "${workspaceFolder}/build",  
+	"cmake.configureOnOpen": true,  
+	"cmake.buildArgs": [],
+	"cmake.configureArgs": [
+		"-DCMAKE_PREFIX_PATH=${workspaceFolder}/vendor/glfw-3.4/include"
+	]
+}

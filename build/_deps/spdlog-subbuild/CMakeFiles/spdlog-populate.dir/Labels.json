@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate"
+		},
+		{
+			"file" : "C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/_deps/spdlog-subbuild/CMakeFiles/1596c593dd1191470ee9dd1da5281c50/spdlog-populate.rule"
+		},
+		{
+			"file" : "C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/_deps/spdlog-subbuild/CMakeFiles/7e0dc0be2c3855ef853d2d73107a4cb3/spdlog-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/_deps/spdlog-subbuild/CMakeFiles/5ea3d62e279ea03e61a5a71d2db6135b/spdlog-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/_deps/spdlog-subbuild/CMakeFiles/5ea3d62e279ea03e61a5a71d2db6135b/spdlog-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/_deps/spdlog-subbuild/CMakeFiles/5ea3d62e279ea03e61a5a71d2db6135b/spdlog-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/_deps/spdlog-subbuild/CMakeFiles/5ea3d62e279ea03e61a5a71d2db6135b/spdlog-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/_deps/spdlog-subbuild/CMakeFiles/5ea3d62e279ea03e61a5a71d2db6135b/spdlog-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/_deps/spdlog-subbuild/CMakeFiles/5ea3d62e279ea03e61a5a71d2db6135b/spdlog-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/_deps/spdlog-subbuild/CMakeFiles/5ea3d62e279ea03e61a5a71d2db6135b/spdlog-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/_deps/spdlog-subbuild/CMakeFiles/5ea3d62e279ea03e61a5a71d2db6135b/spdlog-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"spdlog-populate"
+		],
+		"name" : "spdlog-populate"
+	}
+}
