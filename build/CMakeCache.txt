@@ -172,7 +172,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=vulkan_tutorial
+CMAKE_PROJECT_NAME:STATIC=OranGE
 
 //Value Computed by CMake
 CMAKE_PROJECT_SPDX_LICENSE:STATIC=
@@ -266,6 +266,15 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 //Doxygen documentation generation tool (https://www.doxygen.nl)
 DOXYGEN_EXECUTABLE:FILEPATH=DOXYGEN_EXECUTABLE-NOTFOUND
 
+//Value Computed by CMake
+Engine_BINARY_DIR:STATIC=C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/engine
+
+//Value Computed by CMake
+Engine_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+Engine_SOURCE_DIR:STATIC=C:/Users/fabic/Documents/GitHub/Vulkan-Test/engine
+
 //Directory under which to collect all populated content
 FETCHCONTENT_BASE_DIR:PATH=C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/_deps
 
@@ -290,7 +299,7 @@ FETCHCONTENT_UPDATES_DISCONNECTED_SPDLOG:BOOL=OFF
 GIT_EXECUTABLE:FILEPATH=C:/Program Files/Git/cmd/git.exe
 
 //Value Computed by CMake
-GLFW_BINARY_DIR:STATIC=C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/vendor/glfw-3.4
+GLFW_BINARY_DIR:STATIC=C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/engine/vendor/glfw-3.4
 
 //Build the GLFW documentation
 GLFW_BUILD_DOCS:BOOL=ON
@@ -315,10 +324,19 @@ GLFW_IS_TOP_LEVEL:STATIC=OFF
 GLFW_LIBRARY_TYPE:STRING=
 
 //Value Computed by CMake
-GLFW_SOURCE_DIR:STATIC=C:/Users/fabic/Documents/GitHub/Vulkan-Test/vendor/glfw-3.4
+GLFW_SOURCE_DIR:STATIC=C:/Users/fabic/Documents/GitHub/Vulkan-Test/engine/vendor/glfw-3.4
 
 //Force use of high-performance GPU on hybrid systems
 GLFW_USE_HYBRID_HPG:BOOL=OFF
+
+//Value Computed by CMake
+OranGE_BINARY_DIR:STATIC=C:/Users/fabic/Documents/GitHub/Vulkan-Test/build
+
+//Value Computed by CMake
+OranGE_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+OranGE_SOURCE_DIR:STATIC=C:/Users/fabic/Documents/GitHub/Vulkan-Test
 
 //Build all artifacts
 SPDLOG_BUILD_ALL:BOOL=OFF
@@ -402,8 +420,26 @@ SPDLOG_WCHAR_FILENAMES:BOOL=OFF
 //Support wchar api
 SPDLOG_WCHAR_SUPPORT:BOOL=OFF
 
+//Value Computed by CMake
+Sandbox_BINARY_DIR:STATIC=C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/sandbox/test_app
+
+//Value Computed by CMake
+Sandbox_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+Sandbox_SOURCE_DIR:STATIC=C:/Users/fabic/Documents/GitHub/Vulkan-Test/sandbox/test_app
+
 //Use MSVC runtime library DLL
 USE_MSVC_RUNTIME_LIBRARY_DLL:BOOL=ON
+
+//Value Computed by CMake
+VkCore_BINARY_DIR:STATIC=C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/engine
+
+//Value Computed by CMake
+VkCore_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+VkCore_SOURCE_DIR:STATIC=C:/Users/fabic/Documents/GitHub/Vulkan-Test/engine
 
 //Path to a program.
 Vulkan_GLSLANG_VALIDATOR_EXECUTABLE:FILEPATH=C:/VulkanSDK/1.4.341.1/Bin/glslangValidator.exe
@@ -560,7 +596,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MT
 CMAKE_MT-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=7
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=9
 //Platform information initialized
 CMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1
 //noop for ranlib

@@ -4,28 +4,46 @@
     <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\Log.cpp">
+    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\application\Aplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\Window.cpp">
+    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\core\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\Instance.cpp">
+    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\Device.cpp">
+    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\platform\vulkan\Device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\SwapChain.cpp">
+    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\platform\vulkan\Instance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\VkContext.cpp">
+    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\platform\vulkan\SwapChain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\Vertex.cpp">
+    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\platform\vulkan\Vertex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\Renderer.cpp">
+    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\platform\vulkan\VkContext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\platform\window\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\render\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\render\TestRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\resources\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\resources\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\fabic\Documents\GitHub\Vulkan-Test\src\scene\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

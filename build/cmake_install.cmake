@@ -34,12 +34,12 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/vendor/cmake_install.cmake")
+  include("C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/engine/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/src/cmake_install.cmake")
+  include("C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/sandbox/cmake_install.cmake")
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT

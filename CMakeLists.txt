@@ -1,31 +1,20 @@
-cmake_minimum_required(VERSION 3.15)
+#./CMakeLists.txt
+cmake_minimum_required(VERSION 3.20)
+project(OranGE LANGUAGES CXX)
 
-project(vulkan_tutorial LANGUAGES CXX)
-
-find_package(Vulkan REQUIRED)
-
-# find_package(glfw3 REQUIRED)
-
-# Set global default configurations
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Output directories
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+# Set output directories
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-# extenal dependecies
-add_subdirectory(vendor)
-
-if (NOT TARGET spdlog::spdlog)
-    message(FATAL_ERROR "Dependency spdlog not found!")
+if(WIN32)
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+elseif(UNIX)
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif()
 
-if (MSVC)
-    add_compile_options(/FS)
-endif()
-
-
-add_subdirectory(src)
+add_subdirectory(engine)
+add_subdirectory(sandbox)

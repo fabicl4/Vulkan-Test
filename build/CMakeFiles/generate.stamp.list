@@ -1,7 +1,9 @@
 C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/CMakeFiles/generate.stamp
-C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/vendor/CMakeFiles/generate.stamp
-C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/vendor/glfw-3.4/CMakeFiles/generate.stamp
-C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/vendor/glfw-3.4/src/CMakeFiles/generate.stamp
-C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/vendor/glfw-3.4/docs/CMakeFiles/generate.stamp
+C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/engine/CMakeFiles/generate.stamp
+C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/engine/vendor/CMakeFiles/generate.stamp
+C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/engine/vendor/glfw-3.4/CMakeFiles/generate.stamp
+C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/engine/vendor/glfw-3.4/src/CMakeFiles/generate.stamp
+C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/engine/vendor/glfw-3.4/docs/CMakeFiles/generate.stamp
 C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/_deps/spdlog-build/CMakeFiles/generate.stamp
-C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/src/CMakeFiles/generate.stamp
+C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/sandbox/CMakeFiles/generate.stamp
+C:/Users/fabic/Documents/GitHub/Vulkan-Test/build/sandbox/test_app/CMakeFiles/generate.stamp
