@@ -25,6 +25,10 @@ public:
 
 private:
     std::vector<char> readFile(const std::string& filename);
+
+    // Factory method to create shader modules
+    VkShaderModule createShaderModule(const std::vector<char>& code);
+    
     VkResult createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule);
 
     Device& m_device;

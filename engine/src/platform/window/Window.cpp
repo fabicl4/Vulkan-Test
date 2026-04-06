@@ -1,4 +1,4 @@
-#include "Window.h"
+#include <platform/window/Window.h>
 
 bool Window::create() {
     if (!glfwInit()) {
@@ -8,7 +8,7 @@ bool Window::create() {
 
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
-    m_window = glfwCreateWindow(m_width, m_height, "Vulkan", nullptr, nullptr);
+    m_window = glfwCreateWindow(m_width, m_height, m_name.c_str(), nullptr, nullptr);
     
     if (!m_window) {
         LOG_ERROR("[Window::create]Failed to create the window!");

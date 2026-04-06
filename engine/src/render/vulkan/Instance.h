@@ -1,6 +1,6 @@
 #pragma once
 
-#include "defines.h"
+#include "vkCore.h"
 
 /*
 Represent global Vulkan Instance.
@@ -35,7 +35,6 @@ public:
 private:
     void createInstance();
     void setupDebugMessenger();
-
 
     // helpers
     bool checkValidationLayerSupport();

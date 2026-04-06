@@ -1,10 +1,8 @@
 #pragma once
 
-#include "defines.h"
-#include "Instance.h"
+#include "vkCore.h"
 
-#include <render/vulkan/Buffer.h>
-#include "Pipeline.h"
+#include "Instance.h"
 
 struct SwapChainSupportDetails {
   VkSurfaceCapabilitiesKHR capabilities;
@@ -20,6 +18,8 @@ struct QueueFamilyIndices {
         return graphicsFamily.has_value() && presentFamily.has_value();
     }
 };
+
+// TODO: clean up functions
 
 /* 
  *  Represents the GPU and manage the GPU's resources.
@@ -93,60 +93,7 @@ public:
         return vkQueueSubmit(m_graphicsQueue, 1, &submitInfo, fence);
     }
 
-
 public:
-    // Buffer
-    //-------------------------------------------------------------------------
-    bool createVertexBuffer(const std::vector<float>& vertices, Buffer& vertexBuffer);
-    bool createIndexBuffer(const std::vector<uint16_t>& indices, Buffer& indexBuffer);
-    
-    void destroyBuffer(Buffer& buffer);
-    
-private:
-    bool createBuffer(const BufferDescriptor& desc, Buffer& buffer);
-    void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
-    //void uploadData(Buffer&, const void* data, VkDeviceSize size);
-    
-    // Helpers
-
-    // Image
-    //-------------------------------------------------------------------------
-    bool createTextureImage(int width, int height, int numChannels, unsigned char* data, 
-        VkImage& image, VkDeviceMemory& imageMemory);
-
-private:
-    // Helpers 
-    void createImage(uint32_t width, uint32_t height, 
-        VkFormat format, 
-        VkImageTiling tiling, 
-        VkImageUsageFlags usage, 
-        VkMemoryPropertyFlags properties, 
-        VkImage& image, VkDeviceMemory& imageMemory);
-
-    
-
-public:    
-    // Shader
-    //-------------------------------------------------------------------------
-    VkShaderModule createShaderModule(const std::vector<char>& code);
-    void destroyShaderModule(VkShaderModule shaderModule);
-
-    // Pipeline
-    //-------------------------------------------------------------------------
-    //Pipeline createGraphicsPipeline(
-    //    const std::vector<char>& vsCode, const std::vector<char>& fsCode, const PipelineConfigInfo& configInfo);
-
-    void bindPipeline(VkCommandBuffer commandBuffer,
-        const Pipeline& pipeline) {
-        vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline.handle);
-    }
-
-    void createGraphicsPipeline(VkShaderModule vertShader, VkShaderModule fragShader, 
-        const PipelineConfigInfo& pipelineInfo, Pipeline& pipeline);
-
-    void destroyPipeline(Pipeline& pipeline);
-public:
-
     //-------------------------------------------------------------------------
     // Get native vulkan objects
     VkDevice getDevice() const { return m_device; }
@@ -154,6 +101,29 @@ public:
     VkQueue getGraphicsQueue() const { return m_graphicsQueue; }
     VkQueue getPresentQueue() const { return m_presentQueue; }
     VkCommandPool getCommandPool() const {return m_commandPool;}
+
+public:
+    // Helpers
+
+    // Buffer
+    //-------------------------------------------------------------------------
+    void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
+    void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
+
+    // Image
+    //-------------------------------------------------------------------------
+
+    void createImage(uint32_t width, uint32_t height, 
+        VkFormat format, 
+        VkImageTiling tiling, 
+        VkImageUsageFlags usage, 
+        VkMemoryPropertyFlags properties, 
+        VkImage& image, VkDeviceMemory& imageMemory);
+
+    // Shader
+    //-------------------------------------------------------------------------
+    VkShaderModule createShaderModule(const std::vector<char>& code);
+    void destroyShaderModule(VkShaderModule shaderModule);
 
 private:
     // select device

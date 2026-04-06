@@ -94,3 +94,61 @@ struct Buffer
     // OpenGL uses unsigned char
     //unsigned int* data; // pointer to CPU-side data (if applicable)
 };
+
+inline VkBufferUsageFlags toVkUsage(BufferUsage usage)
+{
+    VkBufferUsageFlags flags = 0;
+    auto u = static_cast<unsigned int>(usage);
+
+    if (u & static_cast<unsigned int>(BufferUsage::Vertex))
+        flags |= VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
+
+    if (u & static_cast<unsigned int>(BufferUsage::Index))
+        flags |= VK_BUFFER_USAGE_INDEX_BUFFER_BIT;
+
+    if (u & static_cast<unsigned int>(BufferUsage::Uniform))
+        flags |= VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
+
+    if (u & static_cast<unsigned int>(BufferUsage::Storage))
+        flags |= VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
+
+    if (u & static_cast<unsigned int>(BufferUsage::CopySrc))
+        flags |= VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
+
+    if (u & static_cast<unsigned int>(BufferUsage::CopyDst))
+        flags |= VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+
+    if (u & static_cast<unsigned int>(BufferUsage::Indirect))
+        flags |= VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT;
+
+    if (u & static_cast<unsigned int>(BufferUsage::UniformTexel))
+        flags |= VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT;
+
+    if (u & static_cast<unsigned int>(BufferUsage::StorageTexel))
+        flags |= VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT;
+
+    return flags;
+}
+
+inline VkMemoryPropertyFlags toVkMemoryFlags(MemoryType type)
+{
+    switch (type)
+    {
+        case MemoryType::GPU_ONLY:
+            return VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
+
+        case MemoryType::CPU_ONLY:
+            return VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
+                   VK_MEMORY_PROPERTY_HOST_CACHED_BIT;
+
+        case MemoryType::CPU_TO_GPU:
+            return VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
+                   VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+
+        case MemoryType::GPU_TO_CPU:
+            return VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
+                   VK_MEMORY_PROPERTY_HOST_CACHED_BIT;
+    }
+
+    return 0;
+}

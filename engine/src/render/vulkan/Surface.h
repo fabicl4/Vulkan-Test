@@ -1,8 +1,11 @@
 #pragma once
 
-#include <vulkan/vulkan.h>
+#include "vkCore.h"
 
-#include <platform/window/Window.h>
+#define GLFW_INCLUDE_VULKAN
+#include <GLFW/glfw3.h>
+
+#include <vulkan/vulkan.h>
 
 class Surface
 {
@@ -11,7 +14,7 @@ public:
     ~Surface() = default;
 
     // create surface
-    bool createSurface(VkInstance instance, Window& window);
+    bool createSurface(VkInstance instance, GLFWwindow* window);
 
     // destroy surface
     void destroySurface(VkInstance instance);

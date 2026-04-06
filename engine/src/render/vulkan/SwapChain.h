@@ -1,6 +1,6 @@
 #pragma once
 
-#include "defines.h"
+#include "vkCore.h"
 
 #include "Device.h"
 
@@ -17,9 +17,7 @@ public:
     //static const char* kSwapChainExtension = VK_KHR_SWAPCHAIN_EXTENSION_NAME;
 
     SwapChain(Device* device, VkSurfaceKHR surface, VkExtent2D extent)
-    : m_device(device), m_surface(surface), m_extent(extent) {
-        recreate(extent);
-    }
+    : m_device(device), m_surface(surface), m_extent(extent) {}
 
     ~SwapChain() {}
 
@@ -71,6 +69,9 @@ private:
     
     VkSurfaceFormatKHR chooseSwapSurfaceFormat(
         const std::vector<VkSurfaceFormatKHR>& availableFormats);
+
+    VkCompositeAlphaFlagBitsKHR chooseSwapCompositeAlpha(
+        const VkSurfaceCapabilitiesKHR& capabilities);
 
     VkExtent2D chooseSwapExtent(
         const VkSurfaceCapabilitiesKHR& capabilities);

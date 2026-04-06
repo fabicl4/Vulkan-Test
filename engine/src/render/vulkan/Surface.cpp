@@ -1,9 +1,11 @@
 #include "Surface.h"
 
+#include <core/Log.h>
+
 // create surface
-bool Surface::createSurface(VkInstance instance, Window& window) {
+bool Surface::createSurface(VkInstance instance, GLFWwindow* window) {
     // Implementation for creating surface
-    if(glfwCreateWindowSurface(instance, window.getNativeHandle(), nullptr, &m_surface) != VK_SUCCESS) {
+    if(glfwCreateWindowSurface(instance, window, nullptr, &m_surface) != VK_SUCCESS) {
         LOG_CRITICAL("[VkContext]Could NOT create the Surface");
         return false;
     }

@@ -1,5 +1,7 @@
 #version 450
 
+// https://vulkan-tutorial.com/code/18_shader_vertexbuffer.vert
+
 layout(location = 0) in vec2 inPosition;
 layout(location = 1) in vec3 inColor;
 

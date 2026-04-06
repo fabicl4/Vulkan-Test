@@ -13,7 +13,10 @@
 
 #include "vulkan/Buffer.h"
 #include "vulkan/Vertex.h"
+//#include "vulkan/Pipeline.h"
 
+#include "RenderPass.h"
+#include "RenderTarget.h"
 #include "SubRenderer.h"
 
 // fwd declarations
@@ -29,13 +32,14 @@ class Renderer {
     static const int MAX_FRAMES_IN_FLIGHT = 2;
 public:
     Renderer(
-        Window& window,
+        Window* window,
         ResourceSystem& resourceSystem
-    ) : 
-        m_window(window), 
-        m_resourceSystem(resourceSystem)
-    {
-        createVkContext();
+    );
+
+    ~Renderer() = default;
+
+    inline void AddSubRenderer(SubRenderer* subRenderer) {
+        m_subRenderers.push_back(subRenderer);
     }
 
     bool initialize();
@@ -64,10 +68,6 @@ public:
         // ...
     }
 
-        void addSubRenderer(SubRenderer* subRenderer) {
-        m_subRenderers.push_back(subRenderer);
-    }
-
 private:
     // handle events
     //-------------------------------------------------------------------------
@@ -88,24 +88,17 @@ private:
     VkResult present(uint32_t imageIndex, VkSemaphore waitSemaphore);
 
 private:
-    Window& m_window;
+    Window* m_window;
     ResourceSystem& m_resourceSystem;
 
     bool m_framebufferResized = false;
 
-    struct VkContext {
-        ~VkContext() = default;
-
-        Device& device() const { return *m_device; }
-        SwapChain& swapchain() const { return *m_swapChain; }
-        Surface& surface() const { return *m_surface; }
-
-        Device* m_device;
-        Instance* m_instance;
-        SwapChain* m_swapChain;
-        Surface* m_surface;
+    struct VkContext { // Graphic context
+        Device* device;
+        Instance* instance;
+        SwapChain* swapChain;
+        Surface* surface;
     } m_vkContext;
-
     
     // represent a frame in flight
     struct FrameContext {

@@ -9,6 +9,16 @@
 #include "vulkan/Surface.h"
 #include "vulkan/Instance.h"
 
+Renderer::Renderer(
+    Window* window,
+    ResourceSystem& resourceSystem
+) : 
+    m_window(window), 
+    m_resourceSystem(resourceSystem)
+{
+    createVkContext();
+}
+
 bool Renderer::initialize()
 {   
     // manage fail states...
@@ -18,32 +28,28 @@ bool Renderer::initialize()
     createCommandBuffers();
     createSyncObjects();
 
-    // add subrenderers!
-    /*
-    auto testRenderer = new TestRenderer();
-    if (!testRenderer->initialize(m_vkContext.device(), m_renderPass)) {
-        LOG_ERROR("Could not initialize");
+    for(auto& sub : m_subRenderers) {
+        if (!sub->initialize(m_vkContext.device, m_renderPass)) {
+            LOG_ERROR("Failed to initialize subrenderer");
+            return false;
+        }
     }
 
-    addSubRenderer(testRenderer);*/
-    
     return true;
 }
 
 void Renderer::cleanup() {
-    vkDeviceWaitIdle(m_vkContext.device().getDevice());
+    vkDeviceWaitIdle(m_vkContext.device->getDevice());
     // ...
 
-    for (auto& sub : m_subRenderers) {
-        sub->cleanup();
-        delete sub;
+    for(auto& sub : m_subRenderers) {
+        sub->cleanup(m_vkContext.device);
     }
-    m_subRenderers.clear();
 
     for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
-        vkDestroySemaphore(m_vkContext.device().getDevice(), m_frameContext[i].imageAvailable, nullptr);
-        vkDestroySemaphore(m_vkContext.device().getDevice(), m_frameContext[i].renderFinished, nullptr);
-        vkDestroyFence(m_vkContext.device().getDevice(), m_frameContext[i].fence, nullptr);
+        vkDestroySemaphore(m_vkContext.device->getDevice(), m_frameContext[i].imageAvailable, nullptr);
+        vkDestroySemaphore(m_vkContext.device->getDevice(), m_frameContext[i].renderFinished, nullptr);
+        vkDestroyFence(m_vkContext.device->getDevice(), m_frameContext[i].fence, nullptr);
     }
 
     // release pipeline
@@ -51,27 +57,27 @@ void Renderer::cleanup() {
 
     // release framebuffers
     for (auto framebuffer : m_framebuffers) {
-        vkDestroyFramebuffer(m_vkContext.device().getDevice(), framebuffer, nullptr);
+        vkDestroyFramebuffer(m_vkContext.device->getDevice(), framebuffer, nullptr);
     }
 
     // release render pass
     vkDestroyRenderPass(
-        m_vkContext.device().getDevice(), 
+        m_vkContext.device->getDevice(), 
         m_renderPass, nullptr);
 
     // ...
 
-    m_vkContext.m_swapChain->cleanup();
-    m_vkContext.m_device->cleanup();
-    m_vkContext.m_surface->destroySurface(m_vkContext.m_instance->handle());
-    m_vkContext.m_instance->cleanup();
+    m_vkContext.swapChain->cleanup();
+    m_vkContext.device->cleanup();
+    m_vkContext.surface->destroySurface(m_vkContext.instance->handle());
+    m_vkContext.instance->cleanup();
 }
 
 void Renderer::beginFrame()
 {
     // wait fence
     vkWaitForFences( //TODO: Encapsulate
-        m_vkContext.device().getDevice(), 
+        m_vkContext.device->getDevice(), 
         1, 
         &m_frameContext[m_currentFrame].fence,
         VK_TRUE, 
@@ -89,7 +95,7 @@ void Renderer::beginFrame()
     }
 
     // reset fences
-    vkResetFences(m_vkContext.device().getDevice(), 1,
+    vkResetFences(m_vkContext.device->getDevice(), 1,
                 &m_frameContext[m_currentFrame].fence);
     // reset command buffer
     vkResetCommandBuffer(m_frameContext[m_currentFrame].cmd, 0); /*VkCommandBufferResetFlagBits*/
@@ -119,7 +125,7 @@ void Renderer::draw()
     renderPassInfo.renderPass = m_renderPass;
     renderPassInfo.framebuffer = m_framebuffers[m_imageIndex];
     renderPassInfo.renderArea.offset = {0, 0};
-    renderPassInfo.renderArea.extent = m_window.getExtent();
+    renderPassInfo.renderArea.extent = m_window->getExtent();
 
     VkClearValue clearColor = {{{0.0f, 0.0f, 0.0f, 1.0f}}};
     renderPassInfo.clearValueCount = 1;
@@ -127,24 +133,22 @@ void Renderer::draw()
 
     vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
-        //m_pipeline->bind(commandBuffer);
-
         VkViewport viewport{};
         viewport.x = 0.0f;
         viewport.y = 0.0f;
-        viewport.width = (float) m_window.getExtent().width;
-        viewport.height = (float) m_window.getExtent().height;
+        viewport.width = (float) m_window->getExtent().width;
+        viewport.height = (float) m_window->getExtent().height;
         viewport.minDepth = 0.0f;
         viewport.maxDepth = 1.0f;
         vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
 
         VkRect2D scissor{};
         scissor.offset = {0, 0};
-        scissor.extent = m_window.getExtent();
+        scissor.extent = m_window->getExtent();
         vkCmdSetScissor(commandBuffer, 0, 1, &scissor);     
         
         for (auto& sub : m_subRenderers) {
-            sub->recordCommands(commandBuffer, m_imageIndex);
+            //sub->recordCommands(commandBuffer, m_imageIndex);
         }
 
     vkCmdEndRenderPass(commandBuffer);
@@ -164,7 +168,7 @@ void Renderer::endFrame() {
     //vkEndCommandBuffer(m_frameContext[m_currentFrame].cmd);
 
     // submit
-    if (m_vkContext.device().submitCommandBuffer(
+    if (m_vkContext.device->submitCommandBuffer(
         m_frameContext[m_currentFrame].cmd,
         m_frameContext[m_currentFrame].imageAvailable,
         m_frameContext[m_currentFrame].renderFinished,
@@ -187,34 +191,45 @@ void Renderer::endFrame() {
 }
 
 void Renderer::createVkContext() {
+    /*
     #if(DEBUG)
         bool enableValidationLayers = true;
     #else
         bool enableValidationLayers = false;
     #endif
+    */
 
-    m_vkContext.m_instance = std::make_unique<Instance>(enableValidationLayers);
-    if (!m_vkContext.m_instance->initialize()) {
+    bool enableValidationLayers = true;
+
+    LOG_INFO("Creating Vulkan context...");
+    LOG_INFO("Validation layers: {}", enableValidationLayers ? "enabled" : "disabled");
+
+    m_vkContext.instance = new Instance(enableValidationLayers);
+    if (!m_vkContext.instance->initialize()) {
         throw std::runtime_error("failed to create Vulkan instance!");
     }
-
-    m_vkContext.m_surface = std::make_unique<Surface>();
-    if (!m_vkContext.m_surface->createSurface(m_vkContext.m_instance->handle(), m_window)) {
+    
+    m_vkContext.surface = new Surface();
+    if (!m_vkContext.surface->createSurface(
+        m_vkContext.instance->handle(), m_window->getNativeHandle())) {
         throw std::runtime_error("failed to create window surface!");
     }
 
-    m_vkContext.m_device = std::make_unique<Device>(m_vkContext.m_instance->handle(), m_vkContext.m_surface->getSurface());
-    if (!m_vkContext.m_device->initialize()) {
+    m_vkContext.device = new Device(
+        m_vkContext.instance->handle(), 
+        m_vkContext.surface->getSurface()
+    );
+    if (!m_vkContext.device->initialize()) {
         throw std::runtime_error("failed to create logical device!");
     }
 
-    m_vkContext.m_swapChain = std::make_unique<SwapChain>(
-        &m_vkContext.device(), 
-        m_vkContext.surface().getSurface(), 
-        m_window.getExtent()
+    m_vkContext.swapChain = new SwapChain(
+        m_vkContext.device, 
+        m_vkContext.surface->getSurface(), 
+        m_window->getExtent()
     );
 
-    if (!m_vkContext.m_swapChain->initialize()) {
+    if (!m_vkContext.swapChain->initialize()) {
         throw std::runtime_error("failed to create swap chain!");
     }
 }
@@ -231,7 +246,7 @@ void Renderer::onWindowResize(int width, int height) {
 //-----------------------------------------------------------------------------
 void Renderer::createRenderPass() {
     VkAttachmentDescription colorAttachment{};
-    colorAttachment.format = m_vkContext.swapchain().getSwapChainImageFormat();
+    colorAttachment.format = m_vkContext.swapChain->getSwapChainImageFormat();
     colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
     colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
     colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
@@ -266,7 +281,7 @@ void Renderer::createRenderPass() {
     renderPassInfo.dependencyCount = 1;
     renderPassInfo.pDependencies = &dependency;
 
-    if (vkCreateRenderPass(m_vkContext.device().getDevice(), &renderPassInfo, nullptr, &m_renderPass) != VK_SUCCESS) {
+    if (vkCreateRenderPass(m_vkContext.device->getDevice(), &renderPassInfo, nullptr, &m_renderPass) != VK_SUCCESS) {
         throw std::runtime_error("failed to create render pass!");
     }
 }
@@ -275,13 +290,13 @@ void Renderer::createRenderPass() {
 void Renderer::createFramebuffers() {
     m_framebuffers.clear();
 
-    uint32_t imageCount = static_cast<uint32_t>(m_vkContext.swapchain().imageCount());
-    VkExtent2D extent = m_vkContext.swapchain().getSwapChainExtent();
+    uint32_t imageCount = static_cast<uint32_t>(m_vkContext.swapChain->imageCount());
+    VkExtent2D extent = m_vkContext.swapChain->getSwapChainExtent();
 
     m_framebuffers.resize(imageCount);
 
     for (uint32_t i = 0; i < imageCount; i++) {
-        VkImageView imageView = m_vkContext.swapchain().getImageView(i);
+        VkImageView imageView = m_vkContext.swapChain->getImageView(i);
 
         VkFramebufferCreateInfo framebufferInfo{};
         framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
@@ -292,14 +307,14 @@ void Renderer::createFramebuffers() {
         framebufferInfo.height = extent.height;
         framebufferInfo.layers = 1;
 
-        if (vkCreateFramebuffer(m_vkContext.device().getDevice(), &framebufferInfo, nullptr, &m_framebuffers[i]) != VK_SUCCESS) {
+        if (vkCreateFramebuffer(m_vkContext.device->getDevice(), &framebufferInfo, nullptr, &m_framebuffers[i]) != VK_SUCCESS) {
             throw std::runtime_error("Fallo al crear framebuffer");
         }
     }
 }
 
 void Renderer::createCommandBuffers() {
-    VkCommandPool commandPool = m_vkContext.device().getCommandPool();
+    VkCommandPool commandPool = m_vkContext.device->getCommandPool();
 
     VkCommandBufferAllocateInfo allocInfo{};
     allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -309,7 +324,7 @@ void Renderer::createCommandBuffers() {
 
     // 3. Crear un array con los handles de los command buffers
     std::array<VkCommandBuffer, MAX_FRAMES_IN_FLIGHT> cmdBuffers;
-    if (vkAllocateCommandBuffers(m_vkContext.device().getDevice(), &allocInfo, cmdBuffers.data()) != VK_SUCCESS) {
+    if (vkAllocateCommandBuffers(m_vkContext.device->getDevice(), &allocInfo, cmdBuffers.data()) != VK_SUCCESS) {
         return;
     }
 
@@ -327,9 +342,9 @@ void Renderer::createSyncObjects() {
         fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 
         for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
-            if (vkCreateSemaphore(m_vkContext.device().getDevice(), &semaphoreInfo, nullptr, &m_frameContext[i].imageAvailable) != VK_SUCCESS ||
-                vkCreateSemaphore(m_vkContext.device().getDevice(), &semaphoreInfo, nullptr, &m_frameContext[i].renderFinished) != VK_SUCCESS ||
-                vkCreateFence(m_vkContext.device().getDevice(), &fenceInfo, nullptr, &m_frameContext[i].fence) != VK_SUCCESS) {
+            if (vkCreateSemaphore(m_vkContext.device->getDevice(), &semaphoreInfo, nullptr, &m_frameContext[i].imageAvailable) != VK_SUCCESS ||
+                vkCreateSemaphore(m_vkContext.device->getDevice(), &semaphoreInfo, nullptr, &m_frameContext[i].renderFinished) != VK_SUCCESS ||
+                vkCreateFence(m_vkContext.device->getDevice(), &fenceInfo, nullptr, &m_frameContext[i].fence) != VK_SUCCESS) {
                 throw std::runtime_error("failed to create synchronization objects for a frame!");
             }
         }
@@ -337,22 +352,22 @@ void Renderer::createSyncObjects() {
 
 void Renderer::recreateSwapChain() {
     // Wait to GPU to finish drawing and then we recreate the SwapChain
-    vkDeviceWaitIdle(m_vkContext.device().getDevice());
+    vkDeviceWaitIdle(m_vkContext.device->getDevice());
 
     // 1. destroy front and back frame buffers
     for (auto framebuffer : m_framebuffers) {
-        vkDestroyFramebuffer(m_vkContext.device().getDevice(), framebuffer, nullptr);
+        vkDestroyFramebuffer(m_vkContext.device->getDevice(), framebuffer, nullptr);
     }
     // 2. cleanup swapchain
     // 3. recreate swapchain
-    m_vkContext.swapchain().recreate(m_window.getExtent());
+    m_vkContext.swapChain->recreate(m_window->getExtent());
     // 4. recreate front and back framebuffers
     createFramebuffers();
 }
 
 VkResult Renderer::acquireNextImage(VkSemaphore signalSemaphore, uint32_t* index) {
-    return m_vkContext.swapchain().acquireNextImage(signalSemaphore, index);
+    return m_vkContext.swapChain->acquireNextImage(signalSemaphore, index);
 }
 VkResult Renderer::present(uint32_t imageIndex, VkSemaphore waitSemaphore) {
-    return m_vkContext.swapchain().present(imageIndex, waitSemaphore);
+    return m_vkContext.swapChain->present(imageIndex, waitSemaphore);
 }

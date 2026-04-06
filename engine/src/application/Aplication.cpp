@@ -2,6 +2,8 @@
 
 #include <platform/window/Window.h>
 
+#include "render/TestRenderer.h"
+
 bool Application::run() {
     if (!initialze()) {
         LOG_ERROR("[Application]Could not initialize");
@@ -42,7 +44,7 @@ bool Application::initialze() {
     Log::Init();
 
     // Create the window
-    m_window = std::make_unique<Window>(800, 600, "Vulkan Test");
+    m_window = new Window (m_width, m_height, m_name);
     if(!m_window || !m_window->create())
     {
         return false;
@@ -54,10 +56,12 @@ bool Application::initialze() {
 
     // Systems
     //---------
-    m_renderer = std::make_unique<Renderer>(*m_window, *m_resourceSystem);
+    m_renderer = std::make_unique<Renderer>(m_window, *m_resourceSystem);
     if (!m_renderer->initialize()) {
         return false;
     }
+
+    m_renderer->AddSubRenderer(new TestRenderer());
 
     // audio system
     // ...
@@ -79,7 +83,7 @@ bool Application::shutdown() {
     m_renderer.reset();
 
     m_window->destroy();
-    m_window.reset();
+    delete m_window;
 
     Log::Shutdown();
     return true;

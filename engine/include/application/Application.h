@@ -31,7 +31,7 @@ class Application
 {
 public:
     Application(int width, int height, std::string name) 
-    {} 
+    : m_width(width), m_height(height), m_name(name) {} 
 
     bool run();
 
@@ -51,9 +51,13 @@ private:
     bool shutdown();
 
 private:
-    std::unique_ptr<Window> m_window;
+    Window* m_window;
     std::unique_ptr<Renderer> m_renderer;
     std::unique_ptr<ResourceSystem> m_resourceSystem;
+
+    int m_width;
+    int m_height; 
+    std::string m_name;
     
     // AudioSystem
     // UISystem

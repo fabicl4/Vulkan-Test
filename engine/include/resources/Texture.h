@@ -6,6 +6,7 @@
 
 #include <core/Log.h>
 #include <core/types.h>
+
 #include <render/Texture.h>
 
 class Device;

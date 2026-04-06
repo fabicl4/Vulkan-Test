@@ -12,8 +12,13 @@ void SwapChain::cleanup() {
     for (auto imageView : m_imageViews) {
         vkDestroyImageView(m_device->getDevice(), imageView, nullptr);
     }
+    m_imageViews.clear();
+    m_images.clear();
 
-    vkDestroySwapchainKHR(m_device->getDevice(), m_handle, nullptr);
+    if (m_handle != VK_NULL_HANDLE) {
+        vkDestroySwapchainKHR(m_device->getDevice(), m_handle, nullptr);
+        m_handle = VK_NULL_HANDLE;
+    }
 }
 
 void SwapChain::createSwapChain() {
@@ -21,7 +26,7 @@ void SwapChain::createSwapChain() {
 
     VkSurfaceFormatKHR surfaceFormat = chooseSwapSurfaceFormat(swapChainSupport.formats);
     VkPresentModeKHR presentMode = chooseSwapPresentMode(swapChainSupport.presentModes);
-    VkExtent2D extent = m_extent;
+    VkExtent2D extent = chooseSwapExtent(swapChainSupport.capabilities);
 
     uint32_t imageCount = swapChainSupport.capabilities.minImageCount + 1;
     if (swapChainSupport.capabilities.maxImageCount > 0 && imageCount > swapChainSupport.capabilities.maxImageCount) {
@@ -51,11 +56,15 @@ void SwapChain::createSwapChain() {
     }
 
     createInfo.preTransform = swapChainSupport.capabilities.currentTransform;
-    createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
+    createInfo.compositeAlpha = chooseSwapCompositeAlpha(swapChainSupport.capabilities);
     createInfo.presentMode = presentMode;
     createInfo.clipped = VK_TRUE;
 
-    if (vkCreateSwapchainKHR(m_device->getDevice(), &createInfo, nullptr, &m_handle) != VK_SUCCESS) {
+    VkResult result = vkCreateSwapchainKHR(m_device->getDevice(), &createInfo, nullptr, 
+        &m_handle);
+
+    if (result != VK_SUCCESS) {
+        LOG_ERROR("Failed to create swap chain: {}", result);
         throw std::runtime_error("failed to create swap chain!");
     }
 
@@ -85,6 +94,35 @@ VkPresentModeKHR SwapChain::chooseSwapPresentMode(const std::vector<VkPresentMod
     }
 
     return VK_PRESENT_MODE_FIFO_KHR;
+}
+
+VkCompositeAlphaFlagBitsKHR SwapChain::chooseSwapCompositeAlpha(const VkSurfaceCapabilitiesKHR& capabilities) {
+    std::vector<VkCompositeAlphaFlagBitsKHR> compositeAlphaFlags = {
+        VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
+        VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR,
+        VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR,
+        VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR,
+    };
+
+    for (auto flag : compositeAlphaFlags) {
+        if (capabilities.supportedCompositeAlpha & flag) {
+            return flag;
+        }
+    }
+
+    return VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
+}
+
+VkExtent2D SwapChain::chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities) {
+    if (capabilities.currentExtent.width != UINT32_MAX) {
+        return capabilities.currentExtent;
+    }
+
+    VkExtent2D actualExtent = m_extent;
+    actualExtent.width = std::clamp(actualExtent.width, capabilities.minImageExtent.width, capabilities.maxImageExtent.width);
+    actualExtent.height = std::clamp(actualExtent.height, capabilities.minImageExtent.height, capabilities.maxImageExtent.height);
+
+    return actualExtent;
 }
 
 void SwapChain::recreate(VkExtent2D extent) {

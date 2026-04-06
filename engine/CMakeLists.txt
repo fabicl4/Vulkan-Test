@@ -42,8 +42,9 @@ target_link_libraries(VkCore
     PUBLIC
         glm
         Vulkan::Vulkan
+        spdlog::spdlog
     PRIVATE
         glfw
         stb
-        spdlog::spdlog
+        
 )
