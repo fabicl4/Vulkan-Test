@@ -92,8 +92,11 @@ private:
     void createRenderTarget();
     //void createRenderPass();
 
-
+    // Swapchain render target (final output)
+    // images and image views are not owned by the render target, they are 
+    // owned by the swapchain. The render target just references them.
     RenderTarget m_renderTarget;
+    
     TrianglePass* m_trianglePass;
 
 private:

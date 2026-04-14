@@ -2,7 +2,7 @@
 
 #include <render/vulkan/Buffer.h>
 
-#include <render/vulkan/Device.h>
+#include <render/vulkan/internal/Device.h>
 
 #include <stb_image.h>
 

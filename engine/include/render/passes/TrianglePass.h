@@ -15,8 +15,6 @@ public:
     void prepare() override;
     // Cleanup resources created by the render pass.
     void cleanup() override;
-    // Called when the render target is resized.
-    //void resize(RenderTarget& renderTarget) override {};
     
 private:
     void doRecordCommands(VkCommandBuffer commandBuffer, uint32_t imageIndex, 

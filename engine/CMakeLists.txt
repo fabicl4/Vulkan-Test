@@ -29,6 +29,10 @@ target_include_directories(VkCore
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
+target_precompile_headers(VkCore PRIVATE
+    src/pch.h
+)
+
 # Vulkan
 find_package(Vulkan REQUIRED)
 

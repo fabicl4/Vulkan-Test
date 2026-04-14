@@ -1,9 +1,12 @@
 #pragma once
 
-#include "vkCore.h"
+#include "include.h"
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
+
+#include <core/types.h>
+#include <core/Log.h>
 
 class Surface
 {

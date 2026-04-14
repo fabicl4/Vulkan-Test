@@ -1,6 +1,14 @@
 #pragma once
 
-#include "vkCore.h"
+#include "include.h"
+
+#include <core/types.h>
+#include <core/Log.h>
+
+#include <vulkan/vulkan.h>
+
+#include <vector>
+#include <optional>
 
 #include "Instance.h"
 

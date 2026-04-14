@@ -4,10 +4,11 @@
 
 #include <platform/window/Window.h>
 
-#include "vulkan/Device.h"
-#include "vulkan/SwapChain.h"
-#include "vulkan/Surface.h"
-#include "vulkan/Instance.h"
+#include <render/vulkan/internal/Device.h>
+#include <render/vulkan/internal/Surface.h>
+#include <render/vulkan/internal/Instance.h>
+#include <render/vulkan/internal/SwapChain.h>
+
 
 Renderer::Renderer(
     Window* window) : 
@@ -21,10 +22,13 @@ bool Renderer::initialize()
 
     createContext();
 
+    // create render passes
     m_trianglePass = new TrianglePass(*m_device);
 
+    // create render target (references swapchain images)
     createRenderTarget();
 
+    // initialize render passes (create render pass, create framebuffers, etc)
     if (!m_trianglePass->initialize(m_renderTarget)) {
         throw std::runtime_error("failed to create triangle render pass!");
     }
@@ -45,17 +49,10 @@ void Renderer::cleanup() {
         vkDestroyFence(m_device->getDevice(), m_frameContext[i].fence, nullptr);
     }
 
-    // release render target frame buffers
-    for (auto framebuffer : m_renderTarget.framebuffers) {
-        vkDestroyFramebuffer(m_device->getDevice(), framebuffer, nullptr);
-    }
-
     // release render passes
     //-----------------------------------------------------------------------------
     m_trianglePass->cleanup();
     delete m_trianglePass;
-
-    // ...
 
     m_swapChain->cleanup();
     m_device->cleanup();
@@ -218,28 +215,32 @@ void Renderer::onWindowResize(int width, int height) {
 //-----------------------------------------------------------------------------
 
 void Renderer::createRenderTarget() {
+    m_renderTarget.colorAttachments.clear();
+
     m_renderTarget.extent = m_swapChain->getExtent();
-    m_renderTarget.colorFormat = m_swapChain->getImageFormat();
 
-    // create framebuffers
-    m_renderTarget.framebuffers.resize(m_swapChain->imageCount());
-
+    // Create color attachments from swapchain image views
     for (size_t i = 0; i < m_swapChain->imageCount(); i++) {
-        VkImageView imageView = m_swapChain->getImageView(i);
+        Texture colorAttachment{};
 
-        VkFramebufferCreateInfo framebufferInfo{};
-        framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-        framebufferInfo.renderPass = m_trianglePass->getVkRenderPass();
-        framebufferInfo.attachmentCount = 1;
-        framebufferInfo.pAttachments = &imageView;
-        framebufferInfo.width = m_renderTarget.extent.width;
-        framebufferInfo.height = m_renderTarget.extent.height;
-        framebufferInfo.layers = 1;
+        colorAttachment.image = m_swapChain->getImage(i);
+        colorAttachment.imageView = m_swapChain->getImageView(i);
+        colorAttachment.sampler = VK_NULL_HANDLE; // No sampler needed for render target
 
-        if (vkCreateFramebuffer(m_device->getDevice(), &framebufferInfo, nullptr, &m_renderTarget.framebuffers[i]) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create framebuffer!");
-        }
+        colorAttachment.format = m_swapChain->getImageFormat();
+        colorAttachment.extent = m_swapChain->getExtent();
+
+        colorAttachment.width  = colorAttachment.extent.width;
+        colorAttachment.height = colorAttachment.extent.height;
+
+        colorAttachment.mipmaps = 1;
+
+        colorAttachment.debugName = "SwapchainImage_" + std::to_string(i);
+
+        m_renderTarget.colorAttachments.push_back(colorAttachment);
     }
+
+    m_renderTarget.isSwapChainTarget = true;
 }
 
 //-----------------------------------------------------------------------------
@@ -284,17 +285,13 @@ void Renderer::recreateSwapChain() {
     // Wait to GPU to finish drawing and then we recreate the SwapChain
     vkDeviceWaitIdle(m_device->getDevice());
 
-    for (auto framebuffer : m_renderTarget.framebuffers) {
-        vkDestroyFramebuffer(m_device->getDevice(), framebuffer, nullptr);
-    }
-
     u32 width = m_window->GetWidth();
     u32 height = m_window->GetHeight();
     VkExtent2D windowExtent = {width, height};
 
     m_swapChain->recreate(windowExtent);
     
-    createRenderTarget();
+    createRenderTarget(); // Recreate render target with new swapchain images
 
     m_trianglePass->resize(m_renderTarget);
 }

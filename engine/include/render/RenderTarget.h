@@ -4,9 +4,21 @@
 
 #include <vector>
 
+#include "Texture.h"
+
 struct RenderTarget {
-    std::vector<VkFramebuffer> framebuffers;
-    VkExtent2D extent;
-    VkFormat colorFormat = VK_FORMAT_UNDEFINED;
-    // opcional: VkImageView colorViews; depthViews; etc.
+    std::vector<Texture> colorAttachments;
+
+    // optional: Depth attachment 
+    Texture depthAttachment;
+
+    VkExtent2D extent {};
+
+    bool isSwapChainTarget = false;
+
+    bool isSwapchain() const { return isSwapChainTarget; }
+
+    // Helpers
+    bool hasDepth() const { return depthAttachment.isValid(); }
+    uint32_t colorCount() const { return static_cast<uint32_t>(colorAttachments.size()); }
 };

@@ -5,7 +5,7 @@
 #include <exception>
 #include <stdexcept>
 
-#include <render/vulkan/Device.h>
+#include <render/vulkan/internal/Device.h>
 
 std::vector<char> ShaderManager::readFile(const std::string& filename) {
         std::ifstream file(filename, std::ios::ate | std::ios::binary);

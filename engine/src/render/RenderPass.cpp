@@ -1,7 +1,7 @@
 #include <render/RenderPass.h>
 
-#include "vulkan/Device.h"
-#include "vulkan/SwapChain.h"
+#include "render/vulkan/internal/Device.h"
+#include "render/vulkan/internal/SwapChain.h"
 
 RenderPass::RenderPass(Device& device, const Config& config) 
     : m_device(device), m_config(config) 
@@ -14,18 +14,19 @@ RenderPass::RenderPass(Device& device, const Config& config)
 bool RenderPass::initialize(RenderTarget& renderTarget) {
     
     // create framebuffers
-    m_framebuffers = renderTarget.framebuffers;
+    createFramebuffers(renderTarget);
 
     return true;
 }
 
 void RenderPass::resize(RenderTarget& renderTarget) {
-    // Recreate framebuffers
-    m_framebuffers = renderTarget.framebuffers;
+    destroyFramebuffers();
+    createFramebuffers(renderTarget);
 }
 
 void RenderPass::cleanup() {
-    
+    destroyFramebuffers();
+
     vkDestroyRenderPass(m_device.getDevice(), m_renderPass, nullptr);
 }
 
@@ -95,4 +96,37 @@ bool RenderPass::createRenderPass() {
     }
 
     return true;
+}
+
+bool RenderPass::createFramebuffers(const RenderTarget& target) {
+    m_framebuffers.resize(target.colorCount());
+
+    for (size_t i = 0; i < target.colorCount(); i++) {
+        VkImageView attachments[] = {
+            target.colorAttachments[i].imageView
+        };
+
+        VkFramebufferCreateInfo framebufferInfo{};
+        framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+        framebufferInfo.renderPass = m_renderPass;
+        framebufferInfo.attachmentCount = 1;
+        framebufferInfo.pAttachments = attachments;
+        framebufferInfo.width = target.extent.width;
+        framebufferInfo.height = target.extent.height;
+        framebufferInfo.layers = 1;
+
+        if (vkCreateFramebuffer(m_device.getDevice(), &framebufferInfo, nullptr, &m_framebuffers[i]) != VK_SUCCESS) {
+            LOG_ERROR("failed to create framebuffer!");
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void RenderPass::destroyFramebuffers() {
+    for (auto framebuffer : m_framebuffers) {
+        vkDestroyFramebuffer(m_device.getDevice(), framebuffer, nullptr);
+    }
+    m_framebuffers.clear();
 }

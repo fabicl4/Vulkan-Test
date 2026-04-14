@@ -1,6 +1,6 @@
 #include "render/passes/TrianglePass.h"
 
-#include "render/vulkan/Device.h"
+#include "render/vulkan/internal/Device.h"
 
 bool TrianglePass::initialize(RenderTarget& renderTarget) {
     RenderPass::initialize(renderTarget);

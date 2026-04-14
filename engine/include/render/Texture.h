@@ -54,14 +54,17 @@ struct Texture {
     VkImage image = {VK_NULL_HANDLE};
     VkImageView imageView = {VK_NULL_HANDLE};
     VkSampler sampler = {VK_NULL_HANDLE};
-
+    
+    VkFormat format = VK_FORMAT_UNDEFINED;
+    VkExtent2D extent     = {};
+    
+    // Debug
+    std::string debugName;
     int width = 0;
     int height = 0;
     int numChannels = 0;
-    
-    VkFormat format = VK_FORMAT_UNDEFINED;
+
     u32 mipmaps;
 
-    // Debug
-    std::string debugName;
+    bool isValid() const { return image != VK_NULL_HANDLE; }
 };

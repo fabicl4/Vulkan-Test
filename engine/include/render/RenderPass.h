@@ -15,21 +15,25 @@ class Device;
 class SubRenderer;
 class SwapChain;
 
-/*
-struct Attachment {
-    VkFormat format;
-    VkAttachmentLoadOp loadOp;
-    VkAttachmentStoreOp storeOp;
-    VkImageLayout initialLayout;
-    VkImageLayout finalLayout;
+
+struct AttachmentDesc {
+    VkFormat            format      = VK_FORMAT_UNDEFINED;
+    VkAttachmentLoadOp  loadOp      = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    VkAttachmentStoreOp storeOp     = VK_ATTACHMENT_STORE_OP_STORE;
+    VkImageLayout       initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+    VkImageLayout       finalLayout   = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    bool                isDepth     = false;
 };
 
-struct Config {
-    std::vector<Attachment> colorAttachments;
-    std::optional<Attachment> depthAttachment;
-};
+struct RenderPassDesc {
+    std::string name; // para debugging y render graph
 
-*/
+    std::vector<AttachmentDesc> colorAttachments;
+    AttachmentDesc              depthAttachment;
+    bool                        hasDepth = false;
+
+    VkPipelineBindPoint bindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+};
 
 // RenderPass is a small wrapper that owns a Vulkan render pass, its framebuffers,
 // and a set of subrenderers that record draw work inside it.
@@ -44,10 +48,11 @@ public:
         VkAttachmentStoreOp storeOp = VK_ATTACHMENT_STORE_OP_STORE;
         VkImageLayout initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
         VkImageLayout finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+
         VkPipelineBindPoint bindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
     };
 
-    RenderPass(Device& device, const Config& config = {});
+    explicit RenderPass(Device& device, const Config& config = {});
     virtual ~RenderPass() = default;
 
     // Functionality:
@@ -64,10 +69,8 @@ public:
     // Cleanup resources created by the render pass.
     virtual void cleanup();
 
-    // Called when the render target is resized.
-    virtual void resize(RenderTarget& renderTarget);
-
-    VkRenderPass getVkRenderPass() const { return m_renderPass; }
+    // Called when the swapchain is resized.
+    void resize(RenderTarget& renderTarget);
 
     void execute(VkCommandBuffer cmd, uint32_t imageIndex, const VkExtent2D& extent) {
         
@@ -77,16 +80,29 @@ public:
 
         endRenderPass(cmd);
     }
+
+    // El RenderTarget de salida de este pass (para que el siguiente pass lo lea).
+    // Solo válido después de initialize().
+    const RenderTarget& getOutputTarget() const { return m_outputTarget; }
+
+    //const Descriptor& getDescriptor() const { return m_desc; }
+    VkRenderPass getVkRenderPass() const { return m_renderPass; }
     
 private:
     void beginRenderPass(VkCommandBuffer commandBuffer, uint32_t imageIndex, const VkExtent2D& extent);
     void endRenderPass(VkCommandBuffer commandBuffer);
     
-    virtual void doRecordCommands(VkCommandBuffer commandBuffer, uint32_t imageIndex, VkFramebuffer framebuffer, const VkExtent2D& extent) = 0;
+    virtual void doRecordCommands(
+        VkCommandBuffer commandBuffer, 
+        uint32_t imageIndex, 
+        VkFramebuffer framebuffer, 
+        const VkExtent2D& extent
+    ) = 0;
 
 private:
     bool createRenderPass();
-    //bool createFramebuffers(RenderTarget& renderTarget);
+    bool createFramebuffers(const RenderTarget& target);
+    void destroyFramebuffers();
 
 protected:
     Device& m_device;
@@ -95,5 +111,9 @@ protected:
     VkRenderPass m_renderPass = VK_NULL_HANDLE;
 
     std::vector<VkFramebuffer> m_framebuffers;
+
+    // El target que este pass produjo (las image views de sus attachments).
+    // Los passes siguientes pueden leerlo como TextureHandles.
+    RenderTarget m_outputTarget;
 };
 

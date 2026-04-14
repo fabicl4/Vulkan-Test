@@ -1,6 +1,6 @@
 #pragma once
 
-#include "vkCore.h"
+#include "include.h"
 
 #include "Device.h"
 
@@ -46,6 +46,7 @@ public:
     // getters
     VkSwapchainKHR handle() const { return m_handle; }
     
+    VkImage getImage(int index) { return m_images[index]; }
     VkImageView getImageView(int index) { return m_imageViews[index]; }
     
     size_t imageCount() { return m_images.size(); }
@@ -86,6 +87,7 @@ private:
     
     // attributes
     VkSwapchainKHR m_handle{VK_NULL_HANDLE};
+
     std::vector<VkImage> m_images{};
     std::vector<VkImageView> m_imageViews{};
 

@@ -1,6 +1,11 @@
 #pragma once
 
-#include "vkCore.h"
+#include "include.h"
+
+#include <vulkan/vulkan.h>
+
+#include <core/types.h>
+#include <core/Log.h>
 
 /*
 Represent global Vulkan Instance.
