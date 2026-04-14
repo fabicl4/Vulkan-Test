@@ -1,14 +1,18 @@
-#include <iostream>
-
 #include <engine.h>
 
-class TestApp : public Application {
+#include <iostream>
+
+#include "render/passes/TrianglePass.h"
+#include "render/RenderTarget.h"
+
+class TriangleApp : public Application {
 public:
-    TestApp(int width, int height, std::string name) : Application(width, height, name) {}
+    TriangleApp(int width, int height, std::string name) : Application(width, height, name) {}
 
 protected:
     bool onCreate() override {
-        std::cout << "TestApp created!" << std::endl;
+        LOG_TRACE("TriangleApp created!");
+        
         return true;
     }
 
@@ -19,12 +23,18 @@ protected:
 
     bool onRender() override {
         // Render logic here
+        
+        return true;
+    }
+
+    bool onDestroy() override {
+        std::cout << "TriangleApp destroyed!" << std::endl;
         return true;
     }
 };
 
 int main() {
-    TestApp app(800, 600, "Vulkan Test");
+    TriangleApp app(800, 600, "Hello Triangles");
     app.run();
 
     return 0;
