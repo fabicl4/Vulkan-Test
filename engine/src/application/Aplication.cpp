@@ -23,10 +23,6 @@ bool Application::run() {
         // process input
         // ...
 
-        m_renderer->beginFrame();
-        m_renderer->draw();
-        m_renderer->endFrame();
-
         onUpdate(0);
 
         m_window->pollEvents();
@@ -56,12 +52,12 @@ bool Application::initialze() {
 
     // Systems
     //---------
-    m_renderer = std::make_unique<Renderer>(m_window, *m_resourceSystem);
+    m_renderer = std::make_unique<Renderer>(m_window);
     if (!m_renderer->initialize()) {
         return false;
     }
 
-    m_renderer->AddSubRenderer(new TestRenderer());
+    //m_renderer->AddSubRenderer(new TestRenderer());
 
     // audio system
     // ...

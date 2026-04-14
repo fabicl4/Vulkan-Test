@@ -10,11 +10,8 @@
 #include "vulkan/Instance.h"
 
 Renderer::Renderer(
-    Window* window,
-    ResourceSystem& resourceSystem
-) : 
-    m_window(window), 
-    m_resourceSystem(resourceSystem)
+    Window* window) : 
+    m_window(window)
 {
     createVkContext();
 }
@@ -23,7 +20,7 @@ bool Renderer::initialize()
 {   
     // manage fail states...
 
-    createRenderPass();
+    //createRenderPass();
     createFramebuffers();
     createCommandBuffers();
     createSyncObjects();
@@ -61,9 +58,7 @@ void Renderer::cleanup() {
     }
 
     // release render pass
-    vkDestroyRenderPass(
-        m_vkContext.device->getDevice(), 
-        m_renderPass, nullptr);
+    // vkDestroyRenderPass(m_vkContext.device->getDevice(), m_renderPass, nullptr);
 
     // ...
 
@@ -108,6 +103,7 @@ void Renderer::beginFrame()
     */
 }
 
+/*
 void Renderer::draw()
 {
     auto& frame = m_frameContext[m_currentFrame];
@@ -157,6 +153,7 @@ void Renderer::draw()
         throw std::runtime_error("failed to record command buffer!");
     }
 }
+*/
 
 /*
     end command buffer
@@ -167,12 +164,19 @@ void Renderer::endFrame() {
     // end command buffer ...
     //vkEndCommandBuffer(m_frameContext[m_currentFrame].cmd);
 
+    auto& frame = m_frameContext[m_currentFrame];
+    VkCommandBuffer commandBuffer = frame.cmd;
+
+    if (vkEndCommandBuffer(commandBuffer) != VK_SUCCESS) {
+        throw std::runtime_error("failed to record command buffer!");
+    }
+
     // submit
     if (m_vkContext.device->submitCommandBuffer(
-        m_frameContext[m_currentFrame].cmd,
-        m_frameContext[m_currentFrame].imageAvailable,
-        m_frameContext[m_currentFrame].renderFinished,
-        m_frameContext[m_currentFrame].fence
+        frame.cmd,
+        frame.imageAvailable,
+        frame.renderFinished,
+        frame.fence
     ) != VK_SUCCESS) {
         throw std::runtime_error("failed to submit draw command buffer!");
     }
@@ -211,7 +215,7 @@ void Renderer::createVkContext() {
     
     m_vkContext.surface = new Surface();
     if (!m_vkContext.surface->createSurface(
-        m_vkContext.instance->handle(), m_window->getNativeHandle())) {
+        m_vkContext.instance->handle(), (GLFWwindow*)m_window->getNativeHandle())) {
         throw std::runtime_error("failed to create window surface!");
     }
 
@@ -223,10 +227,14 @@ void Renderer::createVkContext() {
         throw std::runtime_error("failed to create logical device!");
     }
 
+    u32 width = m_window->GetWidth();
+    u32 height = m_window->GetHeight();
+    VkExtent2D windowExtent = {width, height};
+
     m_vkContext.swapChain = new SwapChain(
         m_vkContext.device, 
         m_vkContext.surface->getSurface(), 
-        m_window->getExtent()
+        windowExtent
     );
 
     if (!m_vkContext.swapChain->initialize()) {
@@ -246,7 +254,7 @@ void Renderer::onWindowResize(int width, int height) {
 //-----------------------------------------------------------------------------
 void Renderer::createRenderPass() {
     VkAttachmentDescription colorAttachment{};
-    colorAttachment.format = m_vkContext.swapChain->getSwapChainImageFormat();
+    colorAttachment.format = m_vkContext.swapChain->getImageFormat();
     colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
     colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
     colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
@@ -291,7 +299,7 @@ void Renderer::createFramebuffers() {
     m_framebuffers.clear();
 
     uint32_t imageCount = static_cast<uint32_t>(m_vkContext.swapChain->imageCount());
-    VkExtent2D extent = m_vkContext.swapChain->getSwapChainExtent();
+    VkExtent2D extent = m_vkContext.swapChain->getExtent();
 
     m_framebuffers.resize(imageCount);
 
@@ -360,7 +368,11 @@ void Renderer::recreateSwapChain() {
     }
     // 2. cleanup swapchain
     // 3. recreate swapchain
-    m_vkContext.swapChain->recreate(m_window->getExtent());
+    u32 width = m_window->GetWidth();
+    u32 height = m_window->GetHeight();
+    VkExtent2D windowExtent = {width, height};
+
+    m_vkContext.swapChain->recreate(windowExtent);
     // 4. recreate front and back framebuffers
     createFramebuffers();
 }
@@ -370,4 +382,12 @@ VkResult Renderer::acquireNextImage(VkSemaphore signalSemaphore, uint32_t* index
 }
 VkResult Renderer::present(uint32_t imageIndex, VkSemaphore waitSemaphore) {
     return m_vkContext.swapChain->present(imageIndex, waitSemaphore);
+}
+
+RenderTarget Renderer::getRenderTarget() const {
+    RenderTarget rt;
+    rt.framebuffers = m_framebuffers;
+    rt.extent = m_vkContext.swapChain->getExtent();
+    rt.colorFormat = m_vkContext.swapChain->getImageFormat();
+    return rt;
 }

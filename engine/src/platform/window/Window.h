@@ -1,12 +1,14 @@
 #pragma once
 
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
-
 #include <string>
 #include <functional>
 
 #include <core/Log.h>
+
+#include <GLFW/glfw3.h>
+
+// fwd
+class GLFWwindow;
 
 class Window {
     using onWindowResizeCallback = std::function<void(int, int)>;
@@ -16,41 +18,22 @@ public:
         : m_width(width), m_height(height), m_name(name) {}
     
     // Create the GLFW window
-    // Create the surface
+    
     bool create();
+    void destroy();
 
-    bool createSurface(VkInstance instance, VkSurfaceKHR* surface);
+    // Create the surface
+    //bool createSurface(VkInstance instance, VkSurfaceKHR* surface);
 
     inline void registerOnWindowResizeCallback(onWindowResizeCallback callback) {
         m_onWindowResizeCallback = callback;
     }
 
-    void destroy() {
-        if (!isCreated()) {
-            return;
-        }
-
-        glfwDestroyWindow(m_window);
-        m_window = nullptr;
-        m_isCreated = false;
-
-        glfwTerminate();
-    }
-
     bool isCreated() const {return m_isCreated && m_window != nullptr;};
-    bool shouldClose() const {
-        return glfwWindowShouldClose(m_window);
-    };
-
-    void pollEvents() {
-        glfwPollEvents();
-    }
+    bool shouldClose() const;
+    void pollEvents();
 
     GLFWwindow* getNativeHandle() {return m_window;}
-    VkExtent2D getExtent() const {
-        VkExtent2D extent = {m_width, m_height};
-        return extent;
-    };
 
     uint32_t GetWidth() const { return m_width; }
     uint32_t GetHeight() const { return m_height; }

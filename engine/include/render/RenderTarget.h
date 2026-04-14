@@ -2,8 +2,11 @@
 
 #include <vulkan/vulkan.h>
 
+#include <vector>
+
 struct RenderTarget {
-    VkImage image;
-    VkImageView view;
-    VkFormat format;
+    std::vector<VkFramebuffer> framebuffers;
+    VkExtent2D extent;
+    VkFormat colorFormat = VK_FORMAT_UNDEFINED;
+    // opcional: VkImageView colorViews; depthViews; etc.
 };

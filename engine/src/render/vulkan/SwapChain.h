@@ -45,10 +45,15 @@ public:
     //-------------------------------------------------------------------------
     // getters
     VkSwapchainKHR handle() const { return m_handle; }
+    
     VkImageView getImageView(int index) { return m_imageViews[index]; }
+    
     size_t imageCount() { return m_images.size(); }
-    VkFormat getSwapChainImageFormat() { return m_imageFormat; }
-    VkExtent2D getSwapChainExtent() { return m_extent; }
+    
+    VkFormat getImageFormat() { return m_imageFormat; }
+
+    VkExtent2D getExtent() { return m_extent; }
+
     uint32_t width() { return m_extent.width; }
     uint32_t height() { return m_extent.height; }
 

@@ -1,5 +1,8 @@
 #include <platform/window/Window.h>
 
+#define GLFW_INCLUDE_VULKAN
+#include <GLFW/glfw3.h>
+
 bool Window::create() {
     if (!glfwInit()) {
         LOG_ERROR("[Window::create]Could NOT initialize GLFW!");
@@ -35,12 +38,34 @@ bool Window::create() {
     return true;
 }
 
+void Window::destroy() {
+    if (!isCreated()) {
+        return;
+    }
+
+    glfwDestroyWindow(m_window);
+    m_window = nullptr;
+    m_isCreated = false;
+
+    glfwTerminate();
+}
+
+bool Window::shouldClose() const {
+    return glfwWindowShouldClose(m_window);
+};
+
+void Window::pollEvents() {
+    glfwPollEvents();
+}
+
+/*
 bool Window::createSurface(VkInstance instance, VkSurfaceKHR* surface) {
     // Create the surface
     if (glfwCreateWindowSurface(instance, m_window, nullptr, surface) != VK_SUCCESS) {
         LOG_ERROR("[Window::create]Failed to create window surface!");
         return false;
     }
-
+    
     return true;
 }
+*/

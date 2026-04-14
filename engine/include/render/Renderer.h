@@ -30,12 +30,25 @@ class Instance;
 // Organice the frame and calls the subrenderers.
 class Renderer {
     static const int MAX_FRAMES_IN_FLIGHT = 2;
-public:
-    Renderer(
-        Window* window,
-        ResourceSystem& resourceSystem
-    );
 
+    struct VkContext { // Graphic context
+        Device* device;
+        Instance* instance;
+        SwapChain* swapChain;
+        Surface* surface;
+    } m_vkContext;
+    
+    // represent a frame in flight
+    struct FrameContext {
+        VkCommandBuffer cmd; // primary command buffer for the frame
+
+        VkFence fence;
+        VkSemaphore imageAvailable;
+        VkSemaphore renderFinished;
+    };
+
+public:
+    Renderer(Window* window);
     ~Renderer() = default;
 
     inline void AddSubRenderer(SubRenderer* subRenderer) {
@@ -54,8 +67,6 @@ public:
     */
     void beginFrame();
 
-    void draw();
-
     /*
         end command buffer
         submit
@@ -67,6 +78,26 @@ public:
         recreateSwapChain();
         // ...
     }
+
+    // Frame context accessorrs
+    VkCommandBuffer getCurrentCommandBuffer() {
+        return m_frameContext[m_currentFrame].cmd;
+    }
+
+    u32 getCurrentImageIndex() const {
+        return m_imageIndex;
+    }
+
+    u32 getCurrentFrameIndex() const {
+        return m_currentFrame;
+    }
+
+    // Vulkan context accessors
+    Device* device() const { return m_vkContext.device; }
+    SwapChain* swapChain() const { return m_vkContext.swapChain; }
+    Surface* surface() const { return m_vkContext.surface; }
+
+    RenderTarget getRenderTarget() const;
 
 private:
     // handle events
@@ -89,34 +120,18 @@ private:
 
 private:
     Window* m_window;
-    ResourceSystem& m_resourceSystem;
+    //ResourceSystem& m_resourceSystem;
 
     bool m_framebufferResized = false;
 
-    struct VkContext { // Graphic context
-        Device* device;
-        Instance* instance;
-        SwapChain* swapChain;
-        Surface* surface;
-    } m_vkContext;
-    
-    // represent a frame in flight
-    struct FrameContext {
-        VkCommandBuffer cmd;
-
-        VkFence fence;
-        VkSemaphore imageAvailable;
-        VkSemaphore renderFinished;
-    };
     std::array<FrameContext, MAX_FRAMES_IN_FLIGHT> m_frameContext {};
+    // current render buffer
+    uint32_t m_currentFrame{0};
 
     uint32_t m_imageIndex;
 
     // Front and back framebuffer
     std::vector<VkFramebuffer> m_framebuffers{};
-
-    // current render buffer
-    uint32_t m_currentFrame{0};
 
     VkRenderPass m_renderPass{};
 

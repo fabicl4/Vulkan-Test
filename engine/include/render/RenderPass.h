@@ -15,6 +15,22 @@ class Device;
 class SubRenderer;
 class SwapChain;
 
+/*
+struct Attachment {
+    VkFormat format;
+    VkAttachmentLoadOp loadOp;
+    VkAttachmentStoreOp storeOp;
+    VkImageLayout initialLayout;
+    VkImageLayout finalLayout;
+};
+
+struct Config {
+    std::vector<Attachment> colorAttachments;
+    std::optional<Attachment> depthAttachment;
+};
+
+*/
+
 // RenderPass is a small wrapper that owns a Vulkan render pass, its framebuffers,
 // and a set of subrenderers that record draw work inside it.
 //
@@ -31,34 +47,52 @@ public:
         VkPipelineBindPoint bindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
     };
 
-    RenderPass(Device& device, const Config& config);
-    ~RenderPass();
+    RenderPass(Device& device, const Config& config = {});
+    virtual ~RenderPass() = default;
 
-    bool initialize(SwapChain& swapChain);
-    void cleanup();
+    // Functionality:
+    // 1. create render pass.
+    // 2. create its own resources
+    // 3. create framebuffers (or receive them from outside)
+    virtual bool initialize(RenderTarget& renderTarget);
 
-    void addSubRenderer(SubRenderer* subRenderer);
-    void removeSubRenderer(SubRenderer* subRenderer);
+    // Prepare data for rendering. Called every frame before recording commands.
+    // The render pass can choose to recreate framebuffers or other resources
+    // if the render target was resized.
+    virtual void prepare() {};
+    
+    // Cleanup resources created by the render pass.
+    virtual void cleanup();
 
-    void beginFrame();
-    void endFrame();
-
-    void recordCommands(VkCommandBuffer commandBuffer, uint32_t imageIndex, VkFramebuffer framebuffer, const VkExtent2D& extent);
+    // Called when the render target is resized.
+    virtual void resize(RenderTarget& renderTarget);
 
     VkRenderPass getVkRenderPass() const { return m_renderPass; }
 
+    void execute(VkCommandBuffer cmd, uint32_t imageIndex, const VkExtent2D& extent) {
+        
+        beginRenderPass(cmd, imageIndex, extent);
+
+            doRecordCommands(cmd, imageIndex, m_framebuffers[imageIndex], extent);
+
+        endRenderPass(cmd);
+    }
+    
 private:
-    bool createRenderPass();
-    bool createFramebuffers(SwapChain& swapChain);
-    void destroyFramebuffers();
+    void beginRenderPass(VkCommandBuffer commandBuffer, uint32_t imageIndex, const VkExtent2D& extent);
+    void endRenderPass(VkCommandBuffer commandBuffer);
+    
+    virtual void doRecordCommands(VkCommandBuffer commandBuffer, uint32_t imageIndex, VkFramebuffer framebuffer, const VkExtent2D& extent) = 0;
 
 private:
+    bool createRenderPass();
+
+protected:
     Device& m_device;
     Config m_config;
 
     VkRenderPass m_renderPass = VK_NULL_HANDLE;
 
     std::vector<VkFramebuffer> m_framebuffers;
-    std::vector<SubRenderer*> m_subRenderers;
 };
 

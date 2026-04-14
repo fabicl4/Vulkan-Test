@@ -50,10 +50,13 @@ private:
 
     bool shutdown();
 
-private:
+protected:
     Window* m_window;
-    std::unique_ptr<Renderer> m_renderer;
-    std::unique_ptr<ResourceSystem> m_resourceSystem;
+    
+    std::unique_ptr<Renderer> m_renderer {};
+    std::unique_ptr<ResourceSystem> m_resourceSystem {};
+
+private:
 
     int m_width;
     int m_height; 
