@@ -5,14 +5,14 @@
 
 RenderPass::RenderPass(Device& device, const Config& config) 
     : m_device(device), m_config(config) 
-{}
+{
+    if (!createRenderPass()) {
+        throw std::runtime_error("failed to create render pass!");
+    }
+}
 
 bool RenderPass::initialize(RenderTarget& renderTarget) {
-    if (!createRenderPass()) {
-        LOG_ERROR("Failed to create render pass");
-        return false;
-    }
-
+    
     // create framebuffers
     m_framebuffers = renderTarget.framebuffers;
 
@@ -20,10 +20,12 @@ bool RenderPass::initialize(RenderTarget& renderTarget) {
 }
 
 void RenderPass::resize(RenderTarget& renderTarget) {
+    // Recreate framebuffers
     m_framebuffers = renderTarget.framebuffers;
 }
 
 void RenderPass::cleanup() {
+    
     vkDestroyRenderPass(m_device.getDevice(), m_renderPass, nullptr);
 }
 

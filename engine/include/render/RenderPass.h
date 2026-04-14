@@ -86,6 +86,7 @@ private:
 
 private:
     bool createRenderPass();
+    //bool createFramebuffers(RenderTarget& renderTarget);
 
 protected:
     Device& m_device;

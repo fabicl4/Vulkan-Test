@@ -17,7 +17,9 @@
 
 #include "RenderPass.h"
 #include "RenderTarget.h"
-#include "SubRenderer.h"
+//#include "SubRenderer.h"
+
+#include <render/passes/TrianglePass.h>
 
 // fwd declarations
 class Window;
@@ -31,13 +33,6 @@ class Instance;
 class Renderer {
     static const int MAX_FRAMES_IN_FLIGHT = 2;
 
-    struct VkContext { // Graphic context
-        Device* device;
-        Instance* instance;
-        SwapChain* swapChain;
-        Surface* surface;
-    } m_vkContext;
-    
     // represent a frame in flight
     struct FrameContext {
         VkCommandBuffer cmd; // primary command buffer for the frame
@@ -51,33 +46,18 @@ public:
     Renderer(Window* window);
     ~Renderer() = default;
 
-    inline void AddSubRenderer(SubRenderer* subRenderer) {
-        m_subRenderers.push_back(subRenderer);
-    }
-
     bool initialize();
 
     void cleanup();
 
-    /*
-        wait fence
-        acquire image
-        reset command buffer
-        begin command buffer
-    */
-    void beginFrame();
+    void drawFrame();
 
-    /*
-        end command buffer
-        submit
-        present
-    */
-    void endFrame();
+    void resize(int width, int height);
 
-    void resize(int width, int height) {
-        recreateSwapChain();
-        // ...
-    }
+    // Vulkan context accessors (internal use only, be careful)
+    Device* device() const { return m_device; }
+    SwapChain* swapChain() const { return m_swapChain; }
+    Surface* surface() const { return m_surface; }
 
     // Frame context accessorrs
     VkCommandBuffer getCurrentCommandBuffer() {
@@ -92,12 +72,29 @@ public:
         return m_currentFrame;
     }
 
-    // Vulkan context accessors
-    Device* device() const { return m_vkContext.device; }
-    SwapChain* swapChain() const { return m_vkContext.swapChain; }
-    Surface* surface() const { return m_vkContext.surface; }
+private:
+    /*
+     *  wait fence
+     *  acquire image
+     *  reset command buffer
+     *  begin command buffer
+     * */
+    void beginFrame();
 
-    RenderTarget getRenderTarget() const;
+    /*
+     *  end command buffer
+     *  submit
+     *  present
+     * */
+    void endFrame();
+
+private:
+    void createRenderTarget();
+    //void createRenderPass();
+
+
+    RenderTarget m_renderTarget;
+    TrianglePass* m_trianglePass;
 
 private:
     // handle events
@@ -108,10 +105,18 @@ private:
     void onWindowResize(int width, int height);
 
 private:
-    void createVkContext();
+    // Graphics context
+    Device* m_device;
+    Instance* m_instance;
+    SwapChain* m_swapChain;
+    Surface* m_surface;
+
+    void createContext();
+
+private:
+
     void recreateSwapChain();
-    void createRenderPass();
-    void createFramebuffers(); // Create front and back framebuffers
+
     void createCommandBuffers();
     void createSyncObjects();
 
@@ -119,6 +124,7 @@ private:
     VkResult present(uint32_t imageIndex, VkSemaphore waitSemaphore);
 
 private:
+
     Window* m_window;
     //ResourceSystem& m_resourceSystem;
 
@@ -129,14 +135,6 @@ private:
     uint32_t m_currentFrame{0};
 
     uint32_t m_imageIndex;
-
-    // Front and back framebuffer
-    std::vector<VkFramebuffer> m_framebuffers{};
-
-    VkRenderPass m_renderPass{};
-
-    // SubRenderes
-    std::vector<SubRenderer*> m_subRenderers{};
 };
 
 // SubRenderers

@@ -2,7 +2,7 @@
 
 #include <platform/window/Window.h>
 
-#include "render/TestRenderer.h"
+#include <render/passes/TrianglePass.h>
 
 bool Application::run() {
     if (!initialze()) {
@@ -24,6 +24,10 @@ bool Application::run() {
         // ...
 
         onUpdate(0);
+
+        //onRender();
+
+        m_renderer->drawFrame();
 
         m_window->pollEvents();
     }
