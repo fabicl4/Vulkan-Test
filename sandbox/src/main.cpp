@@ -1,9 +1,7 @@
-#include <engine.h>
-
 #include <iostream>
 
-#include "render/passes/TrianglePass.h"
-#include "render/RenderTarget.h"
+#include <application/Application.h>
+
 
 class TriangleApp : public Application {
 public:

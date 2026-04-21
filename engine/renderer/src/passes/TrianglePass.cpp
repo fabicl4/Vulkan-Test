@@ -1,15 +1,13 @@
-#include "render/passes/TrianglePass.h"
-
-#include "render/vulkan/internal/Device.h"
+#include <renderer/passes/TrianglePass.h>
 
 // Utilities
-#include <render/utils/TextureLoader.h>
-#include <render/utils/ShaderLoader.h>
-#include <render/utils/PipelineBuilder.h>
+// ...
 
 #include <chrono>
 
-static const int MAX_FRAMES_IN_FLIGHT = 2; // DELETE THIS!
+namespace renderer {
+
+
 
 bool TrianglePass::initialize(RenderTarget& renderTarget) {
     RenderPass::initialize(renderTarget);
@@ -22,9 +20,10 @@ bool TrianglePass::initialize(RenderTarget& renderTarget) {
     //m_texture = TextureLoader(m_ctx).loadTextureFromFile("assets/texture.jpg");
 
     // Load shaders
-    Shader vertShader = ShaderLoader(m_ctx).loadShaderFromFile("shaders/vert.spv");
-    Shader fragShader = ShaderLoader(m_ctx).loadShaderFromFile("shaders/frag.spv");
+    //Shader vertShader = ShaderLoader(m_ctx).loadShaderFromFile("shaders/vert.spv");
+    //Shader fragShader = ShaderLoader(m_ctx).loadShaderFromFile("shaders/frag.spv");
 
+    /*
     Pipeline pipeline = PipelineBuilder(m_ctx)
         .setShaders(vertShader, fragShader)
         .setVertexLayout({
@@ -47,6 +46,8 @@ bool TrianglePass::initialize(RenderTarget& renderTarget) {
         .addDescriptorSet({
             {0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_VERTEX_BIT}
         }).build();
+
+        */
 
     createDescriptorSetLayout();
 
@@ -411,3 +412,5 @@ void TrianglePass::createDescriptorSets() {
     }
 
 }
+
+}; // namespace renderer::pass

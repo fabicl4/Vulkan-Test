@@ -15,6 +15,14 @@ La idea es crear una base que me permita aprender y experimentar con Vulkan
 
 ### Layered Architecture
 
+#### Core
+
+- logging
+- memory
+- utils
+- containers
+- asserts
+
 #### Application
 
 Clase central del proyecto. Se encarga de:

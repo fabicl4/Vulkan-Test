@@ -11,4 +11,7 @@ target_include_directories(Sandbox PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src     # Sandbox headers if any
 )
 
-target_link_libraries(Sandbox PRIVATE VkCore)
+target_link_libraries(Sandbox 
+    PRIVATE 
+        VKTestApp
+)
